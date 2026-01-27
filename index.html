@@ -3,253 +3,283 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Penghafal Percakapan Jepang: Skenario Visual Lengkap</title>
+    <title>Master Percakapan Jepang - 5 Tema Lengkap</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
-        body { font-family: 'Noto Sans JP', sans-serif; background-color: #f1f5f9; }
-        .hidden-content { display: none; }
-        .show-content { display: block; animation: slideDown 0.3s ease-out; }
-        @keyframes slideDown { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500;700;900&display=swap');
+        body { font-family: 'Noto Sans JP', sans-serif; background-color: #0f172a; -webkit-tap-highlight-color: transparent; }
+        .hidden-content { opacity: 0; transform: scale(0.95); pointer-events: none; transition: all 0.3s ease; height: 0; overflow: hidden; }
+        .show-content { opacity: 1; transform: scale(1); pointer-events: auto; height: auto; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); padding: 1.25rem; margin-top: 1rem; }
+        .tab-active { background-color: #f59e0b !important; color: white !important; box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4); }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
-<body class="p-2 md:p-8">
+<body class="flex items-center justify-center min-h-screen bg-slate-900">
 
-<div class="max-w-xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-200">
-    <!-- Selector Skenario -->
-    <div class="bg-slate-800 p-2 flex flex-wrap justify-around border-b border-slate-700">
-        <button onclick="switchSkenario('delay')" id="btn-delay" class="text-[10px] font-bold px-3 py-2 m-1 rounded-full transition bg-amber-600 text-white shadow-lg">⏰ LATE</button>
-        <button onclick="switchSkenario('atm')" id="btn-atm" class="text-[10px] font-bold px-3 py-2 m-1 rounded-full transition bg-slate-700 text-slate-300">🏧 ATM</button>
-        <button onclick="switchSkenario('parkir')" id="btn-parkir" class="text-[10px] font-bold px-3 py-2 m-1 rounded-full transition bg-slate-700 text-slate-300">🚗 TILANG</button>
-        <button onclick="switchSkenario('apartemen')" id="btn-apartemen" class="text-[10px] font-bold px-3 py-2 m-1 rounded-full transition bg-slate-700 text-slate-300">🏢 APARTEMEN</button>
-        <button onclick="switchSkenario('klinik')" id="btn-klinik" class="text-[10px] font-bold px-3 py-2 m-1 rounded-full transition bg-slate-700 text-slate-300">🏥 KLINIK</button>
+<div class="max-w-md w-full bg-slate-50 min-h-screen shadow-2xl flex flex-col relative overflow-hidden md:rounded-[3rem] md:min-h-[850px]">
+    
+    <!-- Navigation Tabs -->
+    <div class="bg-slate-900 pt-6 pb-4 px-4 overflow-x-auto flex gap-2 no-scrollbar sticky top-0 z-50 border-b border-slate-800">
+        <button onclick="changeSkenario('delay')" id="tab-delay" class="px-5 py-2 rounded-full text-[10px] font-black text-slate-400 bg-slate-800 transition-all uppercase tracking-widest shrink-0 border border-slate-700">Terlambat</button>
+        <button onclick="changeSkenario('atm')" id="tab-atm" class="px-5 py-2 rounded-full text-[10px] font-black text-slate-400 bg-slate-800 transition-all uppercase tracking-widest shrink-0 border border-slate-700">ATM</button>
+        <button onclick="changeSkenario('parkir')" id="tab-parkir" class="px-5 py-2 rounded-full text-[10px] font-black text-slate-400 bg-slate-800 transition-all uppercase tracking-widest shrink-0 border border-slate-700">Parkir</button>
+        <button onclick="changeSkenario('sampah')" id="tab-sampah" class="px-5 py-2 rounded-full text-[10px] font-black text-slate-400 bg-slate-800 transition-all uppercase tracking-widest shrink-0 border border-slate-700">Sampah</button>
+        <button onclick="changeSkenario('klinik')" id="tab-klinik" class="px-5 py-2 rounded-full text-[10px] font-black text-slate-400 bg-slate-800 transition-all uppercase tracking-widest shrink-0 border border-slate-700">Klinik</button>
     </div>
 
-    <!-- Header Dynamic -->
-    <div id="header-bg" class="bg-amber-600 p-6 text-white text-center transition-colors duration-500">
-        <h1 id="header-title" class="text-lg font-bold uppercase tracking-widest text-white">遅れて、すみません</h1>
-        <p id="header-desc" class="text-amber-100 text-sm mt-1">Skenario: Terlambat & Memberi Alasan</p>
-    </div>
-
-    <!-- Progress -->
-    <div class="w-full bg-slate-100 h-1.5">
-        <div id="progress" class="bg-yellow-400 h-1.5 transition-all duration-500" style="width: 0%"></div>
-    </div>
-
-    <div class="p-6 md:p-8">
-        <div id="scene-content" class="min-h-[450px]">
-            <!-- Konten diisi JavaScript -->
+    <!-- Header Area -->
+    <div id="header-bg" class="px-8 py-8 text-white transition-all duration-700 shadow-lg">
+        <div class="flex justify-between items-start">
+            <div>
+                <h1 id="header-title" class="text-2xl font-black leading-tight tracking-tight uppercase">...</h1>
+                <p id="header-desc" class="text-[10px] opacity-80 font-bold mt-1 uppercase tracking-widest">...</p>
+            </div>
+            <div id="step-indicator" class="text-4xl font-black opacity-30 tracking-tighter">01</div>
         </div>
     </div>
 
-    <!-- Navigation -->
-    <div class="bg-slate-50 p-4 border-t flex justify-between items-center px-8">
-        <button onclick="prevStep()" class="text-slate-400 hover:text-amber-600 font-bold transition">← Back</button>
-        <span id="step-indicator" class="text-xs font-mono text-slate-400 bg-slate-200 px-3 py-1 rounded-full">1 / 10</span>
-        <button onclick="nextStep()" id="next-btn" class="bg-amber-600 hover:bg-amber-700 text-white px-6 py-2 rounded-xl font-bold shadow-lg transition">Lanjut →</button>
+    <!-- Main Card Content -->
+    <div class="flex-grow p-6 flex flex-col -mt-6">
+        <div id="card-main" class="bg-white rounded-[2.5rem] p-8 shadow-xl border border-slate-100 min-h-[420px] flex flex-col items-center text-center relative">
+            
+            <div id="char-badge" class="absolute -top-4 px-6 py-2 rounded-full shadow-lg text-[10px] font-black tracking-[0.2em] text-white">
+                MEMUAT...
+            </div>
+
+            <div id="avatar" class="w-24 h-24 rounded-3xl bg-slate-50 border-2 border-slate-100 flex items-center justify-center text-5xl mb-6 shadow-inner transition-transform">
+                ...
+            </div>
+
+            <h2 id="char-name" class="text-xl font-black text-slate-800 mb-1">...</h2>
+            <p id="voice-label" class="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-6 italic">MENGATUR SUARA...</p>
+
+            <!-- Text Display Area -->
+            <div class="w-full space-y-4">
+                <div id="jp-text" class="hidden-content bg-slate-900 text-white rounded-3xl text-2xl font-bold leading-relaxed shadow-2xl border-b-8 border-amber-500">
+                    ...
+                </div>
+                
+                <div id="id-text" class="hidden-content bg-amber-50 border-2 border-amber-100 rounded-2xl text-slate-700 text-sm font-bold italic">
+                    ...
+                </div>
+
+                <div id="rm-text" class="hidden-content font-mono text-[10px] text-slate-400 bg-slate-50 py-2 rounded-lg tracking-widest uppercase">
+                    ...
+                </div>
+            </div>
+        </div>
+
+        <!-- Buttons Area -->
+        <div class="mt-8 space-y-4">
+            <!-- Listening Button (Audio Only) -->
+            <button onclick="handlePlayAudio()" class="w-full py-6 bg-teal-600 hover:bg-teal-700 text-white rounded-[2rem] shadow-xl transition-all active:scale-95 flex items-center justify-center gap-4 group">
+                <span class="font-black text-sm uppercase tracking-widest">Dengarkan Suara</span>
+                <svg class="w-6 h-6 group-hover:scale-125 transition-transform" fill="currentColor" viewBox="0 0 20 20"><path d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217z"></path></svg>
+            </button>
+
+            <!-- Visibility Buttons -->
+            <div class="grid grid-cols-2 gap-4">
+                <button onclick="toggleElement('jp-text')" class="py-4 bg-slate-800 text-white rounded-2xl font-black text-[10px] uppercase tracking-widest shadow-lg active:scale-95">
+                    Lihat Jepang
+                </button>
+                <button onclick="toggleElement('id-text')" class="py-4 bg-white border-2 border-slate-200 text-slate-400 rounded-2xl font-black text-[10px] uppercase tracking-widest shadow-md active:scale-95">
+                    Arti & Romaji
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Footer -->
+    <div class="p-8 flex justify-between items-center">
+        <button onclick="prevStep()" class="w-14 h-14 rounded-full bg-white shadow-md flex items-center justify-center text-slate-300 hover:text-slate-800 active:scale-75 transition-all">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        
+        <div id="dots-container" class="flex gap-2"></div>
+
+        <button onclick="nextStep()" class="w-14 h-14 rounded-full bg-amber-500 shadow-lg shadow-amber-200 flex items-center justify-center text-white active:scale-75 transition-all">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"/></svg>
+        </button>
     </div>
 </div>
 
 <script>
-    const data = {
-        delay: {
-            title: "遅れて、すみません",
-            desc: "Skenario: Terlambat & Memberi Alasan",
-            color: "bg-amber-600",
-            script: [
-                { char: "Miller", icon: "🏃‍♂️", context: "Masuk ruangan rapat.", action: "Membungkuk kepada Kachou.", jp: "課長、遅れて、すみません。", romaji: "Kachou, okurete, sumimasen.", keyword: "Terlambat" },
-                { char: "Kachou Nakamura", icon: "👨‍💼", context: "Bertanya kenapa.", action: "Melihat Miller.", jp: "ミラーさん、どう したんですか。", romaji: "Miraa-san, dou shita n desu ka?", keyword: "Ada apa?" },
-                { char: "Miller", icon: "🚌", context: "Alasan awal.", action: "Menjelaskan.", jp: "実は 来る 途中で 事故が あって、バスが 遅れて しまったんです。", romaji: "Jitsu wa kuru tochu de jiko ga atte, basu ga okurete shimatta n desu.", keyword: "Kecelakaan" },
-                { char: "Kachou Nakamura", icon: "👨‍💼", context: "Konfirmasi.", action: "Wajah kaget.", jp: "バスの 事故ですか。", romaji: "Basu no jiko desu ka?", keyword: "Bus" },
-                { char: "Miller", icon: "🚛", context: "Detail tabrakan.", action: "Gestur tabrakan.", jp: "いいえ。交差点で トラックと 車が ぶつかって、バスが 動かなかったんです。", romaji: "Iie. Kousaten de torakku to kuruma ga butsukatte, basu ga ugokanakatta n desu.", keyword: "Tabrakan" },
-                { char: "Kachou Nakamura", icon: "👨‍💼", context: "Prihatin.", action: "Mengangguk.", jp: "それは 大変でしたね。連絡が ないので、みんな 心配して いたんですよ。", romaji: "Sore wa taihen deshita ne. Renraku ga nai node, minna shinpai shite ita n desu yo.", keyword: "Khawatir" },
-                { char: "Miller", icon: "📱", context: "Alasan tidak kabar.", action: "Menyesal.", jp: "電話したかったんですが、ケータイを うちに 忘れて しまって……。どうも すみませんでした。", romaji: "Denwa shitakatta n desu ga, keetai o uchi ni wasurete shimatte... Doumo sumimasen deshita.", keyword: "Lupa HP" },
-                { char: "Kachou Nakamura", icon: "🤝", context: "Memaafkan.", action: "Mempersilakan duduk.", jp: "わかりました。じゃ、会議を 始めましょう。", romaji: "Wakarimashita. Ja, kaigi o hajimemashou.", keyword: "Rapat" }
-            ]
-        },
-        atm: {
-            title: "使い方を 教えて ください",
-            desc: "Skenario: Cara Menggunakan ATM",
-            color: "bg-emerald-600",
-            script: [
-                { char: "Maria", icon: "👤", context: "Minta tolong.", action: "Mendekati petugas.", jp: "すみませんが、ちょっと 使い方を 教えて ください。", romaji: "Sumimasen ga, chotto tsukaikata o oshiete kudasai.", keyword: "Cara pakai" },
-                { char: "Petugas Bank", icon: "🏦", context: "Tanya tujuan.", action: "Bertanya sopan.", jp: "お引き出しですか。", romaji: "Ohikidashi desu ka?", keyword: "Tarik tunai" },
-                { char: "Maria", icon: "👤", context: "Konfirmasi.", action: "Mengangguk.", jp: "はい、お金を 引き出したいんです。", romaji: "Hai, okane o hikidashitai n desu.", keyword: "Ingin tarik" },
-                { char: "Petugas Bank", icon: "🏦", context: "Langkah 1.", action: "Tunjuk layar.", jp: "では、まず ここを 押して ください。", romaji: "Dewa, mazu koko o oshite kudasai.", keyword: "Tekan" },
-                { char: "Maria", icon: "👤", context: "Respon.", action: "Melihat layar.", jp: "はい。", romaji: "Hai.", keyword: "Iya" },
-                { char: "Petugas Bank", icon: "💳", context: "Langkah 2.", action: "Tunjuk slot kartu.", jp: "次に キャッシュカードを ここに 入れて、暗証番号を 押して ください。", romaji: "Tsugi ni kyasshu-kaado o koko ni irete, anshou-bangou o oshite kudasai.", keyword: "PIN" },
-                { char: "Maria", icon: "👤", context: "Tanya lanjut.", action: "Selesai ketik PIN.", jp: "はい、次は どう しますか。", romaji: "Hai, tsugi wa dou shimasu ka?", keyword: "Lalu?" },
-                { char: "Petugas Bank", icon: "💰", context: "Langkah 3.", action: "Tunjuk nominal.", jp: "次は、金額を 押します。いくら 引き出しますか。", romaji: "Tsugi wa, kingaku o oshimasu. Ikura hikidashimasu ka?", keyword: "Nominal" },
-                { char: "Maria", icon: "👤", context: "Sebut jumlah.", action: "Menekan angka.", jp: "5万円ですが、5……。", romaji: "Go-man-en desu ga, go...", keyword: "50.000 Yen" },
-                { char: "Petugas Bank", icon: "✅", context: "Langkah 4.", action: "Tunjuk tombol unit.", jp: "この「万」と「円」を 押して ください。それから、この「確認」ボタンを 押して ください。", romaji: "Kono 'Man' to 'En' o oshite kudasai. Sorekara, kono 'Kakunin' botan o oshite kudasai.", keyword: "Konfirmasi" },
-                { char: "Maria", icon: "👤", context: "Respon.", action: "Menekan tombol.", jp: "はい、押しました。", romaji: "Hai, oshimashita.", keyword: "Sudah tekan" },
-                { char: "Petugas Bank", icon: "📄", context: "Struk.", action: "Tanya struk.", jp: "ご利用明細票は 要りますか。", romaji: "Gouriyou-meisaishou wa irimasu ka?", keyword: "Struk" },
-                { char: "Maria", icon: "👤", context: "Butuh struk.", action: "Mengiyakan.", jp: "はい、要ります。", romaji: "Hai, irimasu.", keyword: "Butuh" },
-                { char: "Petugas Bank", icon: "🏦", context: "Langkah Akhir.", action: "Tunjuk tombol 'Iru'.", jp: "では、この「いる」の ボタンを 押して ください。", romaji: "Dewa, kono 'Iru' no botan o oshite kudasai.", keyword: "Tombol Butuh" },
-                { char: "Maria", icon: "🙏", context: "Selesai.", action: "Bungkuk.", jp: "はい。どうも ありがとう ございました。", romaji: "Hai. Doumo arigatou gozaimashita.", keyword: "Terima kasih" }
-            ]
-        },
-        parkir: {
-            title: "これは どういう 意味ですか",
-            desc: "Skenario: Tilang & Parkir Liar",
-            color: "bg-red-600",
-            script: [
-                { char: "Watt", icon: "👤", context: "Tanya kanji.", action: "Tunjuk kertas.", jp: "すみません。わたしの 車に こんな 紙が はって あったんですが、この 漢字は 何と 読むんですか。", romaji: "Sumimasen. Watashi no kuruma ni konna kami ga hatte atta n desu ga, kono kanji wa nan to yomu n desu ka?", keyword: "Baca Kanji" },
-                { char: "Staf Kampus", icon: "🏢", context: "Membaca.", action: "Melihat kertas.", jp: "「ちゅうしゃいはん」です。", romaji: "Chuushaihan desu.", keyword: "Pelanggaran Parkir" },
-                { char: "Watt", icon: "❓", context: "Arti.", action: "Bingung.", jp: "ちゅうしゃいはん……、どういう 意味ですか。", romaji: "Chuushaihan... douiu imi desu ka?", keyword: "Artinya?" },
-                { char: "Staf Kampus", icon: "🏢", context: "Penjelasan.", action: "Tunjuk luar.", jp: "止めては いけない 場所に 車を 止めたと いう 意味です。どこに 止めたんですか。", romaji: "Tomete wa ikenai basho ni kuruma o tometa to iu imi desu. Doko ni tometa n desu ka?", keyword: "Larangan Parkir" },
-                { char: "Watt", icon: "🚉", context: "Lokasi.", action: "Menunjuk stasiun.", jp: "駅の 前です。雑誌を 買いに 行って、10分だけ……。", romaji: "Eki no mae desu. Zasshi o kai ni itte, juuppun dake...", keyword: "10 Menit" },
-                { char: "Staf Kampus", icon: "⚠️", context: "Aturan.", action: "Tegas.", jp: "駅の 前だったら、10分でも だめですよ。", romaji: "Eki no mae dattara, juuppun demo dame desu yo.", keyword: "Tidak Boleh" },
-                { char: "Watt", icon: "😨", context: "Denda.", action: "Cemas.", jp: "そうですか。罰金を 払わなければ なりませんか。", romaji: "Sou desu ka. Bakkin o harawanakereba narimasen ka?", keyword: "Bayar Denda" },
-                { char: "Staf Kampus", icon: "💰", context: "Jumlah.", action: "Tunjuk angka.", jp: "ええ、15,000円 払わないと いけません。", romaji: "Ee, ichiman-gosen-en harawanaito ikemasen.", keyword: "15.000 Yen" },
-                { char: "Watt", icon: "😱", context: "Kaget.", action: "Pegang kepala.", jp: "えっ。15,000円ですか。雑誌は 300円だったんですけど……。", romaji: "Ett. Ichiman-gosen-en desu ka. Zasshi wa sanbyakuen datta n desu kedo...", keyword: "Gila Mahal" }
-            ]
-        },
-        apartemen: {
-            title: "ごみは どこに 出したら いいですか",
-            desc: "Skenario: Sampah & Masalah Apartemen",
-            color: "bg-indigo-600",
-            script: [
-                { char: "Pengelola", icon: "🏠", context: "Sapaan.", action: "Menyapa Miller.", jp: "ミラーさん、引っ越しの 荷物は 片づきましたか。", romaji: "Miraa-san, hikkoshi no nimotsu wa katazukimashita ka?", keyword: "Beres-beres" },
-                { char: "Miller", icon: "👤", context: "Respon.", action: "Menyeka keringat.", jp: "はい、だいたい 片づきました。あのう、ごみを 捨てたいんですが、どこに 出したら いいですか。", romaji: "Hai, daitai katazukimashita. Anou, gomi o sutetai n desu ga, doko ni dashitara ii desu ka?", keyword: "Buang Sampah" },
-                { char: "Pengelola", icon: "🏠", context: "Sampah bakar.", action: "Tunjuk jadwal.", jp: "燃える ごみは 月曜日と 木曜日の 朝 出して ください。ごみ置き場は 駐車場の 横です。", romaji: "Moeru gomi wa getsuyoubi to mokuyoubi no asa dashite kudasai. Gomi-okiba wa chuushajou no yoko desu.", keyword: "Senin Kamis" },
-                { char: "Miller", icon: "👤", context: "Botol/Kaleng.", action: "Tanya jadwal.", jp: "瓶や 缶は いつですか。", romaji: "Bin ya kan wa itsu desu ka?", keyword: "Botol Kaleng" },
-                { char: "Pengelola", icon: "🏠", context: "Respon.", action: "Angkat jari.", jp: "土曜日です。", romaji: "Doyoubi desu.", keyword: "Sabtu" },
-                { char: "Miller", icon: "👤", context: "Masalah air.", action: "Putar keran.", jp: "わかりました。それから お湯が 出ないんですが……。", romaji: "Wakarimashita. Sorekara oyu ga denai n desu ga...", keyword: "Air Panas" },
-                { char: "Pengelola", icon: "🏢", context: "Solusi gas.", action: "Cek dokumen.", jp: "ガス会社に 連絡したら、すぐ 来て くれますよ。", romaji: "Gasu-gaisha ni renraku shitara, sugu kite kuremasu yo.", keyword: "Kontak Gas" },
-                { char: "Miller", icon: "👤", context: "Minta nomor.", action: "Pegang HP/Pen.", jp: "すみませんが、電話番号を 教えて いただけませんか。", romaji: "Sumimasen ga, denwabangou o oshiete itadakemasen ka?", keyword: "Minta No Telp" },
-                { char: "Pengelola", icon: "🏠", context: "Selesai.", action: "Senyum.", jp: "ええ、いいですよ。", romaji: "Ee, ii desu yo.", keyword: "Oke" }
-            ]
-        },
-        klinik: {
-            title: "病院で - Di Klinik",
-            desc: "Skenario: Pemeriksaan Dokter",
-            color: "bg-teal-600",
-            script: [
-                { char: "Dokter", icon: "👨‍⚕️", context: "Sapaan.", action: "Mempersilakan masuk.", jp: "どう しましたか。", romaji: "Dou shimashita ka?", keyword: "Ada apa?" },
-                { char: "Matsumoto", icon: "🤒", context: "Keluhan.", action: "Pegang leher.", jp: "きのうから のどが 痛くて 熱も 少し あります。", romaji: "Kinou kara nodo ga itakute netsu mo sukoshi arimasu.", keyword: "Sakit Tenggorokan" },
-                { char: "Dokter", icon: "👨‍⚕️", context: "Instruksi.", action: "Ambil senter.", jp: "そうですか。ちょっと 口を 開けて ください。", romaji: "Sou desu ka. Chotto kuchi o akete kudasai.", keyword: "Buka Mulut" },
-                { char: "Matsumoto", icon: "👤", context: "Tanya penyakit.", action: "Cemas.", jp: "あの、何の 病気ですか。", romaji: "Ano, nan no byouki desu ka?", keyword: "Penyakit Apa" },
-                { char: "Dokter", icon: "👨‍⚕️", context: "Diagnosa.", action: "Menyentuh dahi.", jp: "風邪ですね。", romaji: "Kaze desu ne.", keyword: "Flu" },
-                { char: "Matsumoto", icon: "👤", context: "Minta resep tulis.", action: "Memohon.", jp: "すみません、病気の 名前の 書いて いただけませんか。", romaji: "Sumimasen, byouki no namae no kaite itadakemasen ka?", keyword: "Tulis Nama" },
-                { char: "Dokter", icon: "👨‍⚕️", context: "Respon.", action: "Menulis.", jp: "いいですよ、……はい、どうぞ。", romaji: "Ii desu yo, ...hai, douzo.", keyword: "Silakan" },
-                { char: "Matsumoto", icon: "👤", context: "Respon.", action: "Terima kertas.", jp: "ありがとうございます。", romaji: "Arigatou gozaimasu.", keyword: "Makasih" },
-                { char: "Dokter", icon: "🛌", context: "Pesan istirahat.", action: "Menunjuk pintu keluar.", jp: "2、3日 ゆっくり 休んで くださいね。", romaji: "Ni, san nichi yukkuri yasunde kudasai ne.", keyword: "Istirahat" },
-                { char: "Matsumoto", icon: "💼", context: "Alasan dinas.", action: "Bingung.", jp: "あのう、あしたから 東京へ 出張しなければ なりません。", romaji: "Anou, ashita kara Toukyou e shuuchou shinakereba narimasen.", keyword: "Dinas" },
-                { char: "Dokter", icon: "💊", context: "Instruksi obat.", action: "Tunjuk obat.", jp: "じゃ、今日は 薬を 飲んで、早く 寝て ください。", romaji: "Ja, kyou wa kusuri o nonde, hayaku nete kudasai.", keyword: "Minum Obat" },
-                { char: "Matsumoto", icon: "👤", context: "Respon.", action: "Mengangguk.", jp: "はい。", romaji: "Hai.", keyword: "Siap" },
-                { char: "Dokter", icon: "🛀", context: "Larangan mandi.", action: "Mengangkat jari.", jp: "それから、今晩は お風呂に 入らないで くださいね。", romaji: "Sorekara, konban wa ofuro ni hairanaide kudasai ne.", keyword: "Jangan Mandi" },
-                { char: "Matsumoto", icon: "👤", context: "Respon.", action: "Paham.", jp: "はい、わかりました。", romaji: "Hai, wakarimashita.", keyword: "Paham" },
-                { char: "Dokter", icon: "✨", context: "Perpisahan.", action: "Senyum.", jp: "じゃ、お大事に。", romaji: "Ja, odaiji ni.", keyword: "Semoga Sembuh" },
-                { char: "Matsumoto", icon: "🙏", context: "Selesai.", action: "Keluar klinik.", jp: "どうも ありがとう ございました。", romaji: "Doumo arigatou gozaimashita.", keyword: "Terima kasih" }
-            ]
-        }
+    const database = {
+        delay: { title: "Terlambat", desc: "遅れて、すみません", color: "bg-indigo-600", script: [
+            { char: "Miller", type: "B", icon: "🏃‍♂️", jp: "課長、遅れて、すみません。", id: "Kepala bagian, maaf saya terlambat.", rm: "Kachou, okurete, sumimasen." },
+            { char: "Kachou", type: "A", icon: "👨‍💼", jp: "ミラーさん、どう したんですか。", id: "Miller-san, ada apa?", rm: "Miraa-san, dou shita n desu ka?" },
+            { char: "Miller", type: "B", icon: "🚌", jp: "実は 来る 途中で 事故が あって、バスが 遅れて しまったんです。", id: "Sebenarnya di tengah jalan ada kecelakaan, dan bus terlambat.", rm: "Jitsu wa kuru tochu de jiko ga atte, basu ga okurete shimatta n desu." },
+            { char: "Kachou", type: "A", icon: "🏢", jp: "バスの 事故ですか。", id: "Kecelakaan bus?", rm: "Basu no jiko desu ka?" },
+            { char: "Miller", type: "B", icon: "🚚", jp: "いいえ。交差点で トラックと 車が ぶつかって、バスが 動かなかったんです。", id: "Bukan. Di persimpangan truk dan mobil tabrakan, bus tidak bisa jalan.", rm: "Iie. Kousaten de torakku to kuruma ga butsukatte..." },
+            { char: "Kachou", type: "A", icon: "🤝", jp: "それは 大変でしたね。", id: "Wah, itu sulit ya.", rm: "Sore wa taihen deshita ne." },
+            { char: "Miller", type: "B", icon: "📱", jp: "電話したかったんですが、ケータイを うちに 忘れて しまって……。", id: "Saya ingin telepon tapi HP ketinggalan di rumah...", rm: "Denwa shitakatta n desu ga, keetai o wasurete shimatte..." },
+            { char: "Kachou", type: "A", icon: "📋", jp: "わかりました。じゃ、会議を 始めましょう。", id: "Mengerti. Mari kita mulai rapatnya.", rm: "Wakarimashita. Ja, kaigi o hajimemashou." }
+        ]},
+        atm: { title: "ATM", desc: "使い方を 教えて ください", color: "bg-emerald-600", script: [
+            { char: "Maria", type: "B", icon: "👩", jp: "すみませんが、ちょっと 使い方を 教えて ください。", id: "Maaf, tolong ajarkan sebentar cara pakainya.", rm: "Sumimasen ga, chotto tsukaikata o..." },
+            { char: "Petugas", type: "A", icon: "🏦", jp: "お引き出しですか。", id: "Apakah ingin tarik tunai?", rm: "Ohikidashi desu ka?" },
+            { char: "Maria", type: "B", icon: "💳", jp: "はい、お金を 引き出したいんです。", id: "Iya, saya ingin tarik uang.", rm: "Hai, okane o hikidashitai n desu." },
+            { char: "Petugas", type: "A", icon: "☝️", jp: "では、まず ここを 押して ください。", id: "Kalau begitu, pertama tekan di sini.", rm: "Dewa, mazu koko o oshite kudasai." },
+            { char: "Petugas", type: "A", icon: "🔢", jp: "次に キャッシュカードを 入れて、暗証番号を 押して ください。", id: "Lalu masukkan kartu dan tekan PIN.", rm: "Tsugi ni kyasshu-kaado o irete, anshou-bangou o..." },
+            { char: "Maria", type: "B", icon: "❓", jp: "はい、次は どう しますか。", id: "Iya, berikutnya bagaimana?", rm: "Hai, tsugi wa dou shimasu ka?" },
+            { char: "Petugas", type: "A", icon: "💰", jp: "金額を 押して、この「確認」ボタンを 押して ください。", id: "Tekan jumlahnya, lalu tekan tombol konfirmasi ini.", rm: "Kingaku o oshite, kono 'kakunin' botan o..." },
+            { char: "Maria", type: "B", icon: "🙏", jp: "どうも ありがとう ございました。", id: "Terima kasih banyak.", rm: "Doumo arigatou gozaimashita." }
+        ]},
+        parkir: { title: "Parkir", desc: "これは どういう 意味ですか", color: "bg-red-600", script: [
+            { char: "Watt", type: "B", icon: "👤", jp: "この 漢字は 何と 読むんですか。", id: "Kanji ini dibaca apa?", rm: "Kono kanji wa nan to yomu n desu ka?" },
+            { char: "Staf", type: "A", icon: "👮", jp: "「ちゅうしゃいはん」です。", id: "Bacanya 'Chuushaihan' (Pelanggaran Parkir).", rm: "Chuushaihan desu." },
+            { char: "Watt", type: "B", icon: "❓", jp: "どういう 意味ですか。", id: "Apa artinya?", rm: "Douiu imi desu ka?" },
+            { char: "Staf", type: "A", icon: "🚫", jp: "止めては いけない 場所に 車を 止めたと いう 意味です。", id: "Artinya memarkir mobil di tempat terlarang.", rm: "Tomete wa ikenai basho ni kuruma o tometa..." },
+            { char: "Watt", type: "B", icon: "😰", jp: "罰金を 払わなければ なりませんか。", id: "Apakah saya harus bayar denda?", rm: "Bakkin o harawanakereba narimasen ka?" },
+            { char: "Staf", type: "A", icon: "💰", jp: "ええ、15,000円 払わないと いけません。", id: "Iya, harus bayar 15.000 yen.", rm: "Ee, ichiman-gosen-en harawanaito ikemasen." }
+        ]},
+        sampah: { title: "Sampah", desc: "ごみの 出し方", color: "bg-blue-600", script: [
+            { char: "Miller", type: "B", icon: "👤", jp: "ごみを 捨てたいんですが、どこに 出したら いいですか。", id: "Saya mau buang sampah, sebaiknya dikeluarkan ke mana?", rm: "Gomi o sutetai n desu ga, doko ni dashitara..." },
+            { char: "Pengelola", type: "A", icon: "🏠", jp: "燃える ごみは 月曜日と 木曜日の 朝 出して ください。", id: "Sampah bakar keluarkan Senin & Kamis pagi.", rm: "Moeru gomi wa getsuyoubi to mokuyoubi no asa..." },
+            { char: "Miller", type: "B", icon: "❓", jp: "瓶や 缶は いつですか。", id: "Kalau botol dan kaleng kapan?", rm: "Bin ya kan wa itsu desu ka?" },
+            { char: "Pengelola", type: "A", icon: "📅", jp: "土曜日です。ごみ置き場は 駐車場の 横です。", id: "Hari Sabtu. Tempat sampahnya di samping parkiran.", rm: "Doyoubi desu. Gomi-okiba wa chuushajou no yoko..." }
+        ]},
+        klinik: { title: "Klinik", desc: "病院で", color: "bg-teal-600", script: [
+            { char: "Dokter", type: "A", icon: "👨‍⚕️", jp: "どう しましたか。", id: "Ada apa? (Apa keluhannya?)", rm: "Dou shimashita ka?" },
+            { char: "Matsumoto", type: "B", icon: "🤒", jp: "きのうから のどが 痛くて、熱も 少し あります。", id: "Sejak kemarin tenggorokan sakit, dan sedikit demam.", rm: "Kinou kara nodo ga itakute, netsu mo sukoshi..." },
+            { char: "Dokter", type: "A", icon: "👄", jp: "そうですか。ちょっと 口を 開けて ください。", id: "Begitu ya. Tolong buka mulutnya sebentar.", rm: "Sou desu ka. Chotto kuchi o akete kudasai." },
+            { char: "Matsumoto", type: "B", icon: "😰", jp: "あの、何の 病気ですか。", id: "Anu, saya sakit apa ya?", rm: "Ano, nan no byouki desu ka?" },
+            { char: "Dokter", type: "A", icon: "🤒", jp: "風邪ですね。", id: "Sakit flu ya.", rm: "Kaze desu ne." },
+            { char: "Matsumoto", type: "B", icon: "📝", jp: "すみません、病気の 名前を 書いて いただけませんか。", id: "Maaf, bisakah menuliskan nama penyakitnya?", rm: "Sumimasen, byouki no namae o kaite..." },
+            { char: "Dokter", type: "A", icon: "✍️", jp: "いいですよ。……はい、どうぞ。", id: "Boleh saja. ...Ini, silakan.", rm: "Ii desu yo. ...Hai, douzo." },
+            { char: "Matsumoto", type: "B", icon: "🙏", jp: "ありがとうございます。", id: "Terima kasih banyak.", rm: "Arigatou gozaimasu." },
+            { char: "Dokter", type: "A", icon: "🛌", jp: "２、３日 ゆっくり 休んで くださいね。", id: "Istirahatlah dengan tenang selama 2-3 hari ya.", rm: "Ni, san nichi yukkuri yasunde kudasai ne." },
+            { char: "Matsumoto", type: "B", icon: "🚅", jp: "あのう、あしたから 東京へ 出張しなければ なりません。", id: "Anu, mulai besok saya harus dinas ke Tokyo.", rm: "Anou, ashita kara Toukyou e shuuchou..." },
+            { char: "Dokter", type: "A", icon: "💊", jp: "じゃ、今日は 薬を 飲んで、早く 寝て ください。", id: "Kalau begitu, hari ini minum obat lalu tidur awal.", rm: "Ja, kyou wa kusuri o nonde, hayaku nete..." },
+            { char: "Dokter", type: "A", icon: "🚫", jp: "それから、今晩は お風呂に 入らないで くださいね。", id: "Lalu, malam ini tolong jangan mandi (berendam) ya.", rm: "Sorekara, konban wa ofuro ni hairanaide..." },
+            { char: "Matsumoto", type: "B", icon: "👤", jp: "はい、わかりました。", id: "Baik, saya mengerti.", rm: "Hai, wakarimashita." },
+            { char: "Dokter", type: "A", icon: "✨", jp: "じゃ、お大事に。", id: "Semoga lekas sembuh.", rm: "Ja, odaiji ni." }
+        ]}
     };
 
     let activeKey = 'delay';
     let currentStep = 0;
+    let voices = [];
 
-    function switchSkenario(key) {
+    // Voice Initialization
+    function loadVoices() {
+        voices = window.speechSynthesis.getVoices();
+    }
+    window.speechSynthesis.onvoiceschanged = loadVoices;
+    loadVoices();
+
+    function speak(text, type) {
+        if (!window.speechSynthesis) return;
+        window.speechSynthesis.cancel();
+        
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'ja-JP';
+
+        // Select the best Japanese voice
+        const jpVoice = voices.find(v => (v.lang === 'ja-JP' || v.lang === 'ja_JP') && v.name.includes('Google')) 
+                       || voices.find(v => v.lang.includes('ja'));
+        if (jpVoice) utterance.voice = jpVoice;
+
+        // Kontras Suara Ekstrem
+        if (type === 'A') {
+            utterance.pitch = 0.5; // Sangat Berat (Pria/Atasan)
+            utterance.rate = 0.75; // Lambat
+        } else {
+            utterance.pitch = 1.5; // Sangat Tinggi (Wanita/Junior)
+            utterance.rate = 1.0;  // Normal
+        }
+
+        window.speechSynthesis.speak(utterance);
+    }
+
+    function changeSkenario(key) {
         activeKey = key;
         currentStep = 0;
-        
-        const keys = ['delay', 'atm', 'parkir', 'apartemen', 'klinik'];
-        keys.forEach(k => {
-            const btn = document.getElementById('btn-' + k);
-            if (btn) {
-                if (k === key) {
-                    btn.className = `text-[10px] font-bold px-3 py-2 m-1 rounded-full transition ${data[k].color} text-white shadow-lg`;
-                } else {
-                    btn.className = "text-[10px] font-bold px-3 py-2 m-1 rounded-full transition bg-slate-700 text-slate-300";
-                }
-            }
-        });
-        
-        document.getElementById('header-bg').className = `${data[key].color} p-6 text-white text-center transition-colors duration-500`;
-        document.getElementById('header-title').innerText = data[key].title;
-        document.getElementById('header-desc').innerText = data[key].desc;
-        
-        renderScene();
+        document.querySelectorAll('button[id^="tab-"]').forEach(b => b.classList.remove('tab-active'));
+        document.getElementById('tab-' + key).classList.add('tab-active');
+        render();
     }
 
-    function toggleContent(id) {
+    function handlePlayAudio() {
+        const step = database[activeKey].script[currentStep];
+        speak(step.jp, step.type);
+    }
+
+    function toggleElement(id) {
         const el = document.getElementById(id);
-        el.classList.toggle('hidden-content');
-        el.classList.toggle('show-content');
+        if (el.classList.contains('hidden-content')) {
+            el.classList.remove('hidden-content');
+            el.classList.add('show-content');
+            if (id === 'id-text') document.getElementById('rm-text').classList.add('show-content');
+        } else {
+            el.classList.remove('show-content');
+            el.classList.add('hidden-content');
+            if (id === 'id-text') document.getElementById('rm-text').classList.remove('show-content');
+        }
     }
 
-    function renderScene() {
-        const script = data[activeKey].script;
-        const scene = script[currentStep];
-        const content = document.getElementById('scene-content');
+    function render() {
+        const data = database[activeKey];
+        const step = data.script[currentStep];
         
-        content.innerHTML = `
-            <div class="active-scene flex flex-col h-full">
-                <div class="flex items-center gap-4 mb-4">
-                    <div class="w-14 h-14 bg-slate-50 rounded-2xl flex items-center justify-center text-3xl shadow-inner border border-slate-100">
-                        ${scene.icon}
-                    </div>
-                    <div>
-                        <h2 class="text-md font-bold text-slate-800">${scene.char}</h2>
-                        <p class="text-[10px] text-indigo-600 font-bold uppercase tracking-tight">Baris ${currentStep + 1} / ${script.length}</p>
-                    </div>
-                </div>
+        // Header Update
+        document.getElementById('header-bg').className = `px-8 py-8 text-white transition-all duration-700 shadow-lg ${data.color}`;
+        document.getElementById('header-title').innerText = data.title;
+        document.getElementById('header-desc').innerText = data.desc;
+        document.getElementById('step-indicator').innerText = (currentStep + 1).toString().padStart(2, '0');
 
-                <div class="bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-xl mb-6 shadow-sm">
-                    <p class="text-amber-900 font-bold mb-1 text-xs uppercase tracking-tighter">🧠 Konteks:</p>
-                    <p class="text-slate-800 text-sm leading-relaxed mb-3">${scene.context}</p>
-                    <div class="bg-white/50 p-2 rounded border border-amber-200">
-                        <p class="text-amber-700 text-[11px] font-bold">AKSI: <span class="font-normal italic">${scene.action}</span></p>
-                    </div>
-                </div>
+        // Character Card Update
+        document.getElementById('avatar').innerText = step.icon;
+        document.getElementById('char-name').innerText = step.char;
+        
+        const badge = document.getElementById('char-badge');
+        badge.innerText = `SUARA TIPE ${step.type}`;
+        badge.className = `absolute -top-4 px-6 py-2 rounded-full shadow-lg text-[9px] font-black tracking-[0.3em] text-white ${step.type === 'A' ? 'bg-slate-800' : 'bg-amber-600'}`;
+        
+        document.getElementById('voice-label').innerText = step.type === 'A' ? 'BERAT / RENDAH (OTORITAS)' : 'TINGGI / CERIA (PASIEN/STAF)';
 
-                <div class="space-y-3 mt-auto">
-                    <button onclick="toggleContent('jp-text')" class="w-full py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-bold transition flex justify-between px-6 border border-slate-200 shadow-sm">
-                        <span class="text-sm">CEK BAHASA JEPANG</span>
-                        <span>👁️</span>
-                    </button>
-                    <div id="jp-text" class="hidden-content p-5 bg-indigo-50 rounded-xl text-center border border-indigo-200">
-                        <p class="text-2xl font-bold text-indigo-900 leading-relaxed mb-2">${scene.jp}</p>
-                        <div class="inline-block px-3 py-1 bg-yellow-300 text-yellow-900 text-[10px] font-bold rounded-full uppercase">Kunci: ${scene.keyword}</div>
-                    </div>
+        // Reset Text Displays
+        const jp = document.getElementById('jp-text');
+        jp.innerText = step.jp;
+        jp.className = "hidden-content bg-slate-900 text-white rounded-3xl text-2xl font-bold leading-relaxed shadow-2xl border-b-8 border-amber-500";
+        
+        const id = document.getElementById('id-text');
+        id.innerText = step.id;
+        id.className = "hidden-content bg-amber-50 border-2 border-amber-100 rounded-2xl text-slate-700 text-sm font-bold italic";
+        
+        const rm = document.getElementById('rm-text');
+        rm.innerText = step.rm;
+        rm.className = "hidden-content font-mono text-[10px] text-slate-400 bg-slate-50 py-2 rounded-lg tracking-widest uppercase";
 
-                    <button onclick="toggleContent('rm-text')" class="w-full py-2 bg-white hover:bg-slate-50 text-slate-400 rounded-xl text-[10px] font-bold transition flex justify-between px-6 border border-dashed border-slate-300">
-                        <span>LIHAT ROMAJI</span>
-                        <span>🔡</span>
-                    </button>
-                    <div id="rm-text" class="hidden-content p-3 bg-slate-50 rounded-xl text-center border border-slate-200">
-                        <p class="text-xs font-mono text-slate-500">${scene.romaji}</p>
-                    </div>
-                </div>
-            </div>
-        `;
-
-        document.getElementById('progress').style.width = `${((currentStep + 1) / script.length) * 100}%`;
-        document.getElementById('step-indicator').innerText = `${currentStep + 1} / ${script.length}`;
-        document.getElementById('next-btn').innerText = currentStep === script.length - 1 ? "Ulangi" : "Lanjut";
+        // Progress Dots
+        const dots = document.getElementById('dots-container');
+        dots.innerHTML = '';
+        data.script.forEach((_, i) => {
+            const dot = document.createElement('div');
+            dot.className = `h-1.5 rounded-full transition-all duration-300 ${i === currentStep ? 'w-10 bg-amber-500' : 'w-2 bg-slate-200'}`;
+            dots.appendChild(dot);
+        });
     }
 
     function nextStep() {
-        const script = data[activeKey].script;
-        if (currentStep < script.length - 1) {
+        if (currentStep < database[activeKey].script.length - 1) {
             currentStep++;
-            renderScene();
+            render();
         } else {
             currentStep = 0;
-            renderScene();
+            render();
         }
     }
 
     function prevStep() {
         if (currentStep > 0) {
             currentStep--;
-            renderScene();
+            render();
         }
     }
 
-    window.onload = () => switchSkenario('delay');
+    window.onload = () => changeSkenario('delay');
 </script>
-
 </body>
 </html>
 
