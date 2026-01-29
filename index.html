@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Master Percakapan Jepang - 5 Tema Lengkap</title>
+    <title>Master Percakapan Jepang - Sesuai Buku</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500;700;900&display=swap');
@@ -28,167 +28,182 @@
     </div>
 
     <!-- Header Area -->
-    <div id="header-bg" class="px-8 py-8 text-white transition-all duration-700 shadow-lg">
-        <div class="flex justify-between items-start">
+    <div id="header-bg" class="px-8 py-6 text-white transition-all duration-700 shadow-lg relative overflow-hidden">
+        <div class="absolute right-0 top-0 opacity-10 transform translate-x-4 -translate-y-2 scale-150" id="header-icon-large">🏢</div>
+        <div class="flex justify-between items-start relative z-10">
             <div>
                 <h1 id="header-title" class="text-2xl font-black leading-tight tracking-tight uppercase">...</h1>
                 <p id="header-desc" class="text-[10px] opacity-80 font-bold mt-1 uppercase tracking-widest">...</p>
             </div>
             <div id="step-indicator" class="text-4xl font-black opacity-30 tracking-tighter">01</div>
         </div>
+        <div id="situation-box" class="mt-4 bg-black/20 p-3 rounded-xl border border-white/10 text-[11px] font-medium leading-relaxed italic">
+            ...
+        </div>
     </div>
 
     <!-- Main Card Content -->
-    <div class="flex-grow p-6 flex flex-col -mt-6">
-        <div id="card-main" class="bg-white rounded-[2.5rem] p-8 shadow-xl border border-slate-100 min-h-[420px] flex flex-col items-center text-center relative">
-            
-            <div id="char-badge" class="absolute -top-4 px-6 py-2 rounded-full shadow-lg text-[10px] font-black tracking-[0.2em] text-white">
-                MEMUAT...
-            </div>
+    <div class="flex-grow p-6 flex flex-col -mt-4">
+        <div id="card-main" class="bg-white rounded-[2.5rem] p-8 shadow-xl border border-slate-100 min-h-[440px] flex flex-col items-center text-center relative">
+            <div id="char-badge" class="absolute -top-4 px-6 py-2 rounded-full shadow-lg text-[10px] font-black tracking-[0.2em] text-white">MEMUAT...</div>
+            <div id="avatar" class="w-20 h-20 rounded-2xl bg-slate-50 border-2 border-slate-100 flex items-center justify-center text-5xl mb-4 shadow-inner">...</div>
+            <h2 id="char-name" class="text-lg font-black text-slate-800 mb-0.5">...</h2>
+            <div id="action-prompt" class="text-[9px] bg-amber-100 text-amber-700 px-3 py-1 rounded-full font-black uppercase tracking-tighter mb-4">...</div>
 
-            <div id="avatar" class="w-24 h-24 rounded-3xl bg-slate-50 border-2 border-slate-100 flex items-center justify-center text-5xl mb-6 shadow-inner transition-transform">
-                ...
-            </div>
-
-            <h2 id="char-name" class="text-xl font-black text-slate-800 mb-1">...</h2>
-            <p id="voice-label" class="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-6 italic">MENGATUR SUARA...</p>
-
-            <!-- Text Display Area -->
-            <div class="w-full space-y-4">
-                <div id="jp-text" class="hidden-content bg-slate-900 text-white rounded-3xl text-2xl font-bold leading-relaxed shadow-2xl border-b-8 border-amber-500">
-                    ...
-                </div>
-                
-                <div id="id-text" class="hidden-content bg-amber-50 border-2 border-amber-100 rounded-2xl text-slate-700 text-sm font-bold italic">
-                    ...
-                </div>
-
-                <div id="rm-text" class="hidden-content font-mono text-[10px] text-slate-400 bg-slate-50 py-2 rounded-lg tracking-widest uppercase">
-                    ...
-                </div>
+            <div class="w-full space-y-3">
+                <div id="jp-text" class="hidden-content bg-slate-900 text-white rounded-3xl text-2xl font-bold leading-relaxed shadow-2xl border-b-8 border-amber-500">...</div>
+                <div id="id-text" class="hidden-content bg-amber-50 border-2 border-amber-100 rounded-2xl text-slate-700 text-sm font-bold italic">...</div>
+                <div id="rm-text" class="hidden-content font-mono text-[10px] text-slate-400 bg-slate-50 py-2 rounded-lg tracking-widest uppercase">...</div>
             </div>
         </div>
 
-        <!-- Buttons Area -->
-        <div class="mt-8 space-y-4">
-            <!-- Listening Button (Audio Only) -->
-            <button onclick="handlePlayAudio()" class="w-full py-6 bg-teal-600 hover:bg-teal-700 text-white rounded-[2rem] shadow-xl transition-all active:scale-95 flex items-center justify-center gap-4 group">
-                <span class="font-black text-sm uppercase tracking-widest">Dengarkan Suara</span>
-                <svg class="w-6 h-6 group-hover:scale-125 transition-transform" fill="currentColor" viewBox="0 0 20 20"><path d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217z"></path></svg>
+        <div class="mt-6 space-y-3">
+            <button onclick="handlePlayAudio()" class="w-full py-5 bg-teal-600 hover:bg-teal-700 text-white rounded-[2rem] shadow-xl transition-all active:scale-95 flex items-center justify-center gap-4 group">
+                <span class="font-black text-xs uppercase tracking-widest">Dengarkan Suara</span>
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217z"></path></svg>
             </button>
-
-            <!-- Visibility Buttons -->
-            <div class="grid grid-cols-2 gap-4">
-                <button onclick="toggleElement('jp-text')" class="py-4 bg-slate-800 text-white rounded-2xl font-black text-[10px] uppercase tracking-widest shadow-lg active:scale-95">
-                    Lihat Jepang
-                </button>
-                <button onclick="toggleElement('id-text')" class="py-4 bg-white border-2 border-slate-200 text-slate-400 rounded-2xl font-black text-[10px] uppercase tracking-widest shadow-md active:scale-95">
-                    Arti & Romaji
-                </button>
+            <div class="grid grid-cols-2 gap-3">
+                <button onclick="toggleElement('jp-text')" class="py-3.5 bg-slate-800 text-white rounded-2xl font-black text-[9px] uppercase tracking-widest shadow-lg active:scale-95">Lihat Jepang</button>
+                <button onclick="toggleElement('id-text')" class="py-3.5 bg-white border-2 border-slate-200 text-slate-400 rounded-2xl font-black text-[9px] uppercase tracking-widest shadow-md active:scale-95">Arti & Romaji</button>
             </div>
         </div>
     </div>
 
     <!-- Navigation Footer -->
-    <div class="p-8 flex justify-between items-center">
-        <button onclick="prevStep()" class="w-14 h-14 rounded-full bg-white shadow-md flex items-center justify-center text-slate-300 hover:text-slate-800 active:scale-75 transition-all">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7"/></svg>
+    <div class="p-6 flex justify-between items-center">
+        <button onclick="prevStep()" class="w-12 h-12 rounded-full bg-white shadow-md flex items-center justify-center text-slate-300 active:scale-75 transition-all">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7"/></svg>
         </button>
-        
-        <div id="dots-container" class="flex gap-2"></div>
-
-        <button onclick="nextStep()" class="w-14 h-14 rounded-full bg-amber-500 shadow-lg shadow-amber-200 flex items-center justify-center text-white active:scale-75 transition-all">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"/></svg>
+        <div id="dots-container" class="flex gap-1.5"></div>
+        <button onclick="nextStep()" class="w-12 h-12 rounded-full bg-amber-500 shadow-lg flex items-center justify-center text-white active:scale-75 transition-all">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"/></svg>
         </button>
     </div>
 </div>
 
 <script>
     const database = {
-        delay: { title: "Terlambat", desc: "遅れて、すみません", color: "bg-indigo-600", script: [
-            { char: "Miller", type: "B", icon: "🏃‍♂️", jp: "課長、遅れて、すみません。", id: "Kepala bagian, maaf saya terlambat.", rm: "Kachou, okurete, sumimasen." },
-            { char: "Kachou", type: "A", icon: "👨‍💼", jp: "ミラーさん、どう したんですか。", id: "Miller-san, ada apa?", rm: "Miraa-san, dou shita n desu ka?" },
-            { char: "Miller", type: "B", icon: "🚌", jp: "実は 来る 途中で 事故が あって、バスが 遅れて しまったんです。", id: "Sebenarnya di tengah jalan ada kecelakaan, dan bus terlambat.", rm: "Jitsu wa kuru tochu de jiko ga atte, basu ga okurete shimatta n desu." },
-            { char: "Kachou", type: "A", icon: "🏢", jp: "バスの 事故ですか。", id: "Kecelakaan bus?", rm: "Basu no jiko desu ka?" },
-            { char: "Miller", type: "B", icon: "🚚", jp: "いいえ。交差点で トラックと 車が ぶつかって、バスが 動かなかったんです。", id: "Bukan. Di persimpangan truk dan mobil tabrakan, bus tidak bisa jalan.", rm: "Iie. Kousaten de torakku to kuruma ga butsukatte..." },
-            { char: "Kachou", type: "A", icon: "🤝", jp: "それは 大変でしたね。", id: "Wah, itu sulit ya.", rm: "Sore wa taihen deshita ne." },
-            { char: "Miller", type: "B", icon: "📱", jp: "電話したかったんですが、ケータイを うちに 忘れて しまって……。", id: "Saya ingin telepon tapi HP ketinggalan di rumah...", rm: "Denwa shitakatta n desu ga, keetai o wasurete shimatte..." },
-            { char: "Kachou", type: "A", icon: "📋", jp: "わかりました。じゃ、会議を 始めましょう。", id: "Mengerti. Mari kita mulai rapatnya.", rm: "Wakarimashita. Ja, kaigi o hajimemashou." }
-        ]},
-        atm: { title: "ATM", desc: "使い方を 教えて ください", color: "bg-emerald-600", script: [
-            { char: "Maria", type: "B", icon: "👩", jp: "すみませんが、ちょっと 使い方を 教えて ください。", id: "Maaf, tolong ajarkan sebentar cara pakainya.", rm: "Sumimasen ga, chotto tsukaikata o..." },
-            { char: "Petugas", type: "A", icon: "🏦", jp: "お引き出しですか。", id: "Apakah ingin tarik tunai?", rm: "Ohikidashi desu ka?" },
-            { char: "Maria", type: "B", icon: "💳", jp: "はい、お金を 引き出したいんです。", id: "Iya, saya ingin tarik uang.", rm: "Hai, okane o hikidashitai n desu." },
-            { char: "Petugas", type: "A", icon: "☝️", jp: "では、まず ここを 押して ください。", id: "Kalau begitu, pertama tekan di sini.", rm: "Dewa, mazu koko o oshite kudasai." },
-            { char: "Petugas", type: "A", icon: "🔢", jp: "次に キャッシュカードを 入れて、暗証番号を 押して ください。", id: "Lalu masukkan kartu dan tekan PIN.", rm: "Tsugi ni kyasshu-kaado o irete, anshou-bangou o..." },
-            { char: "Maria", type: "B", icon: "❓", jp: "はい、次は どう しますか。", id: "Iya, berikutnya bagaimana?", rm: "Hai, tsugi wa dou shimasu ka?" },
-            { char: "Petugas", type: "A", icon: "💰", jp: "金額を 押して、この「確認」ボタンを 押して ください。", id: "Tekan jumlahnya, lalu tekan tombol konfirmasi ini.", rm: "Kingaku o oshite, kono 'kakunin' botan o..." },
-            { char: "Maria", type: "B", icon: "🙏", jp: "どうも ありがとう ございました。", id: "Terima kasih banyak.", rm: "Doumo arigatou gozaimashita." }
-        ]},
-        parkir: { title: "Parkir", desc: "これは どういう 意味ですか", color: "bg-red-600", script: [
-            { char: "Watt", type: "B", icon: "👤", jp: "この 漢字は 何と 読むんですか。", id: "Kanji ini dibaca apa?", rm: "Kono kanji wa nan to yomu n desu ka?" },
-            { char: "Staf", type: "A", icon: "👮", jp: "「ちゅうしゃいはん」です。", id: "Bacanya 'Chuushaihan' (Pelanggaran Parkir).", rm: "Chuushaihan desu." },
-            { char: "Watt", type: "B", icon: "❓", jp: "どういう 意味ですか。", id: "Apa artinya?", rm: "Douiu imi desu ka?" },
-            { char: "Staf", type: "A", icon: "🚫", jp: "止めては いけない 場所に 車を 止めたと いう 意味です。", id: "Artinya memarkir mobil di tempat terlarang.", rm: "Tomete wa ikenai basho ni kuruma o tometa..." },
-            { char: "Watt", type: "B", icon: "😰", jp: "罰金を 払わなければ なりませんか。", id: "Apakah saya harus bayar denda?", rm: "Bakkin o harawanakereba narimasen ka?" },
-            { char: "Staf", type: "A", icon: "💰", jp: "ええ、15,000円 払わないと いけません。", id: "Iya, harus bayar 15.000 yen.", rm: "Ee, ichiman-gosen-en harawanaito ikemasen." }
-        ]},
-        sampah: { title: "Sampah", desc: "ごみの 出し方", color: "bg-blue-600", script: [
-            { char: "Miller", type: "B", icon: "👤", jp: "ごみを 捨てたいんですが、どこに 出したら いいですか。", id: "Saya mau buang sampah, sebaiknya dikeluarkan ke mana?", rm: "Gomi o sutetai n desu ga, doko ni dashitara..." },
-            { char: "Pengelola", type: "A", icon: "🏠", jp: "燃える ごみは 月曜日と 木曜日の 朝 出して ください。", id: "Sampah bakar keluarkan Senin & Kamis pagi.", rm: "Moeru gomi wa getsuyoubi to mokuyoubi no asa..." },
-            { char: "Miller", type: "B", icon: "❓", jp: "瓶や 缶は いつですか。", id: "Kalau botol dan kaleng kapan?", rm: "Bin ya kan wa itsu desu ka?" },
-            { char: "Pengelola", type: "A", icon: "📅", jp: "土曜日です。ごみ置き場は 駐車場の 横です。", id: "Hari Sabtu. Tempat sampahnya di samping parkiran.", rm: "Doyoubi desu. Gomi-okiba wa chuushajou no yoko..." }
-        ]},
-        klinik: { title: "Klinik", desc: "病院で", color: "bg-teal-600", script: [
-            { char: "Dokter", type: "A", icon: "👨‍⚕️", jp: "どう しましたか。", id: "Ada apa? (Apa keluhannya?)", rm: "Dou shimashita ka?" },
-            { char: "Matsumoto", type: "B", icon: "🤒", jp: "きのうから のどが 痛くて、熱も 少し あります。", id: "Sejak kemarin tenggorokan sakit, dan sedikit demam.", rm: "Kinou kara nodo ga itakute, netsu mo sukoshi..." },
-            { char: "Dokter", type: "A", icon: "👄", jp: "そうですか。ちょっと 口を 開けて ください。", id: "Begitu ya. Tolong buka mulutnya sebentar.", rm: "Sou desu ka. Chotto kuchi o akete kudasai." },
-            { char: "Matsumoto", type: "B", icon: "😰", jp: "あの、何の 病気ですか。", id: "Anu, saya sakit apa ya?", rm: "Ano, nan no byouki desu ka?" },
-            { char: "Dokter", type: "A", icon: "🤒", jp: "風邪ですね。", id: "Sakit flu ya.", rm: "Kaze desu ne." },
-            { char: "Matsumoto", type: "B", icon: "📝", jp: "すみません、病気の 名前を 書いて いただけませんか。", id: "Maaf, bisakah menuliskan nama penyakitnya?", rm: "Sumimasen, byouki no namae o kaite..." },
-            { char: "Dokter", type: "A", icon: "✍️", jp: "いいですよ。……はい、どうぞ。", id: "Boleh saja. ...Ini, silakan.", rm: "Ii desu yo. ...Hai, douzo." },
-            { char: "Matsumoto", type: "B", icon: "🙏", jp: "ありがとうございます。", id: "Terima kasih banyak.", rm: "Arigatou gozaimasu." },
-            { char: "Dokter", type: "A", icon: "🛌", jp: "２、３日 ゆっくり 休んで くださいね。", id: "Istirahatlah dengan tenang selama 2-3 hari ya.", rm: "Ni, san nichi yukkuri yasunde kudasai ne." },
-            { char: "Matsumoto", type: "B", icon: "🚅", jp: "あのう、あしたから 東京へ 出張しなければ なりません。", id: "Anu, mulai besok saya harus dinas ke Tokyo.", rm: "Anou, ashita kara Toukyou e shuuchou..." },
-            { char: "Dokter", type: "A", icon: "💊", jp: "じゃ、今日は 薬を 飲んで、早く 寝て ください。", id: "Kalau begitu, hari ini minum obat lalu tidur awal.", rm: "Ja, kyou wa kusuri o nonde, hayaku nete..." },
-            { char: "Dokter", type: "A", icon: "🚫", jp: "それから、今晩は お風呂に 入らないで くださいね。", id: "Lalu, malam ini tolong jangan mandi (berendam) ya.", rm: "Sorekara, konban wa ofuro ni hairanaide..." },
-            { char: "Matsumoto", type: "B", icon: "👤", jp: "はい、わかりました。", id: "Baik, saya mengerti.", rm: "Hai, wakarimashita." },
-            { char: "Dokter", type: "A", icon: "✨", jp: "じゃ、お大事に。", id: "Semoga lekas sembuh.", rm: "Ja, odaiji ni." }
-        ]}
+        delay: { 
+            title: "遅れて、すみません", 
+            desc: "Bab 39", 
+            color: "bg-indigo-600",
+            icon: "🏢",
+            situation: "Miller terlambat rapat karena kecelakaan bus. Ia meminta maaf kepada Kepala Bagian Nakamura.",
+            script: [
+                { char: "Miller", type: "B", icon: "🏃‍♂️", action: "Minta Maaf", jp: "課長、遅れて、すみません。", id: "Kepala bagian, maaf saya terlambat.", rm: "Kachou, okurete, sumimasen." },
+                { char: "Nakamura", type: "A", icon: "👨‍💼", action: "Tanya Alasan", jp: "ミラーさん、どう したんですか。", id: "Miller-san, ada apa?", rm: "Miraa-san, dou shita n desu ka?" },
+                { char: "Miller", type: "B", icon: "🚌", action: "Jelaskan Kejadian", jp: "実は 来る 途中で 事故が あって、バスが 遅れて しまったんです。", id: "Sebenarnya di tengah jalan ada kecelakaan, dan bus terlambat.", rm: "Jitsu wa kuru tochu de jiko ga atte, basu ga okurete shimatta n desu." },
+                { char: "Nakamura", type: "A", icon: "❓", action: "Konfirmasi", jp: "バスの 事故ですか。", id: "Kecelakaan bus?", rm: "Basu no jiko desu ka?" },
+                { char: "Miller", type: "B", icon: "🚚", action: "Detail Kecelakaan", jp: "いいえ。交差点で トラックと 車が ぶつかって、バスが 動かなかったんです。", id: "Bukan. Di persimpangan truk dan mobil tabrakan, bus tidak bergerak.", rm: "Iie. Kousaten de torakku to kuruma ga butsukatte, basu ga ugokanakatta n desu." },
+                { char: "Nakamura", type: "A", icon: "🤝", action: "Empati", jp: "それは 大変でしたね。", id: "Wah, itu sulit ya.", rm: "Sore wa taihen deshita ne." },
+                { char: "Nakamura", type: "A", icon: "📢", action: "Info Kekhawatiran", jp: "連絡が ないので、みんな 心配して いたんですよ。", id: "Karena tidak ada kabar, semuanya mengkhawatirkan Anda lho.", rm: "Renraku ga nai node, minna shinpai shite ita n desu yo." },
+                { char: "Miller", type: "B", icon: "📱", action: "Jelaskan HP Lupa", jp: "電話したかったんですが、ケータイを うちに 忘れて しまって……。どうも すみませんでした。", id: "Saya ingin telepon tapi HP ketinggalan di rumah... Benar-benar mohon maaf.", rm: "Denwa shitakatta n desu ga, keetai o uchi ni wasurete shimatte... doumo sumimasen deshita." },
+                { char: "Nakamura", type: "A", icon: "📋", action: "Mulai Rapat", jp: "わかりました。じゃ、会議を 始めましょう。", id: "Mengerti. Kalau begitu mari kita mulai rapatnya.", rm: "Wakarimashita. Ja, kaigi o hajimemashou." }
+            ]
+        },
+        atm: { 
+            title: "使い方を 教えて ください", 
+            desc: "ATM Tarik Tunai", 
+            color: "bg-emerald-600",
+            icon: "🏦",
+            situation: "Maria meminta bantuan petugas bank untuk menggunakan mesin ATM.",
+            script: [
+                { char: "Maria", type: "B", icon: "👩", action: "Minta Bantuan", jp: "すみませんが、ちょっと 使い方を 教えて ください。", id: "Maaf, tolong ajarkan sebentar cara pakainya.", rm: "Sumimasen ga, chotto tsukaikata o oshiete kudasai." },
+                { char: "Petugas", type: "A", icon: "🏦", action: "Tanya Jenis Transaksi", jp: "お引き出しですか。", id: "Apakah ingin tarik tunai?", rm: "Ohikidashi desu ka?" },
+                { char: "Maria", type: "B", icon: "💳", action: "Konfirmasi", jp: "はい、お金を 引き出したいんです。", id: "Iya, saya ingin tarik uang.", rm: "Hai, okane o hikidashitai n desu." },
+                { char: "Petugas", type: "A", icon: "☝️", action: "Langkah 1", jp: "では、まず ここを 押して ください。", id: "Kalau begitu, pertama tekan di sini.", rm: "Dewa, mazu koko o oshite kudasai." },
+                { char: "Maria", type: "B", icon: "✅", action: "Ya", jp: "はい。", id: "Iya.", rm: "Hai." },
+                { char: "Petugas", type: "A", icon: "🔢", action: "Langkah 2 (PIN)", jp: "次に キャッシュカードを ここに 入れて、暗証番号を 押して ください。", id: "Lalu masukkan kartu di sini, dan tekan PIN.", rm: "Tsugi ni kyasshu-kaado o koko ni irete, anshoubangou o oshite kudasai." },
+                { char: "Maria", type: "B", icon: "❓", action: "Tanya Langkah Lanjut", jp: "はい、次は どう しますか。", id: "Iya, berikutnya bagaimana?", rm: "Hai, tsugi wa dou shimasu ka?" },
+                { char: "Petugas", type: "A", icon: "💰", action: "Langkah 3 (Jumlah)", jp: "次は、金額を 押します。いくら 引き出しますか。", id: "Berikutnya, tekan jumlahnya. Mau tarik berapa?", rm: "Tsugi wa, kingaku o oshimasu. Ikura hikidashimasu ka?" },
+                { char: "Maria", type: "B", icon: "💴", action: "Sebutkan 50rb", jp: "５万円ですが、５……。", id: "50.000 Yen, tapi tekan 5...", rm: "Go-man-en desu ga, go..." },
+                { char: "Petugas", type: "A", icon: "🔘", action: "Langkah 4 (Satuan)", jp: "この「万」と「円」を 押して ください。それから、この「確認」ボタンを 押して ください。", id: "Tekan 'Man' dan 'En' ini. Lalu, tekan tombol konfirmasi ini.", rm: "Kono 'Man' to 'En' o oshite kudasai. Sorekara, kono 'kakunin' botan o..." },
+                { char: "Maria", type: "B", icon: "🔘", action: "Sudah Tekan", jp: "はい、押しました。", id: "Iya, sudah saya tekan.", rm: "Hai, oshimashita." },
+                { char: "Petugas", type: "A", icon: "📄", action: "Tanya Struk", jp: "ご利用明細票は 要りますか。", id: "Apakah rincian transaksi (struk) diperlukan?", rm: "Goriyou-meisaihyou wa irimasu ka?" },
+                { char: "Maria", type: "B", icon: "📄", action: "Butuh Struk", jp: "はい、要ります。", id: "Iya, perlu.", rm: "Hai, irimasu." },
+                { char: "Petugas", type: "A", icon: "🔘", action: "Langkah Akhir", jp: "では、この「いる」の ボタンを 押して ください。", id: "Kalau begitu, silakan tekan tombol 'Iru' (Ada/Perlu) ini.", rm: "Dewa, kono 'iru' no botan o oshite kudasai." },
+                { char: "Maria", type: "B", icon: "🙏", action: "Terima Kasih", jp: "はい。どうも ありがとう ございました。", id: "Iya. Terima kasih banyak.", rm: "Hai. Doumo arigatou gozaimashita." }
+            ]
+        },
+        parkir: { 
+            title: "これは どういう 意味ですか", 
+            desc: "Bab 33", 
+            color: "bg-red-600",
+            icon: "🚫",
+            situation: "Watt menemukan kertas di mobilnya dan bertanya kepada Staf Kampus (Daigaku Shokuin).",
+            script: [
+                { char: "Watt", type: "B", icon: "👤", action: "Tanya Cara Baca", jp: "すみません。わたしの 車に こんな 紙が はって あったんですが、この 漢字は 何と 読むんですか。", id: "Maaf, di mobil saya tertempel kertas begini, kanji ini dibaca apa?", rm: "Sumimasen. Watashi no kuruma ni konna kami ga hatte atta n desu ga, kono kanji wa nan to yomu n desu ka?" },
+                { char: "Staf", type: "A", icon: "👮", action: "Baca Kanji", jp: "「ちゅうしゃいはん」です。", id: "Bacanya 'Chuushaihan' (Pelanggaran Parkir).", rm: "Chuushaihan desu." },
+                { char: "Watt", type: "B", icon: "❓", action: "Tanya Maksud", jp: "ちゅうしゃいはん……、どういう 意味ですか。", id: "Chuushaihan... apa artinya?", rm: "Chuushaihan... douiu imi desu ka?" },
+                { char: "Staf", type: "A", icon: "🚫", action: "Jelaskan Arti", jp: "止めては いけない 場所に 車を 止めたと いう 意味です。どこに 止めたんですか。", id: "Artinya memarkir mobil di tempat terlarang. Di mana Anda memarkirnya?", rm: "Tomete wa ikenai basho ni kuruma o tometa to iu imi desu." },
+                { char: "Watt", type: "B", icon: "🚉", action: "Jawab Lokasi", jp: "駅の 前です。雑誌を 買いに 行って、10分だけ……。", id: "Di depan stasiun. Pergi beli majalah, cuma 10 menit...", rm: "Eki no mae desu. Zasshi o kai ni itte, juppun dake..." },
+                { char: "Staf", type: "A", icon: "🚫", action: "Teguran", jp: "駅の 前だったら、10分でも だめですよ。", id: "Kalau di depan stasiun, 10 menit pun tidak boleh lho.", rm: "Eki no mae dattara, juppun demo dame desu yo." },
+                { char: "Watt", type: "B", icon: "😰", action: "Tanya Denda", jp: "そうですか。罰金を 払わなければ なりませんか。", id: "Begitu ya. Apakah saya harus membayar denda?", rm: "Sou desu ka. Bakkin o harawanakereba narimasen ka?" },
+                { char: "Staf", type: "A", icon: "💰", action: "Sebutkan Denda", jp: "ええ、15,000円 払わないと いけません。", id: "Iya, harus bayar 15.000 yen.", rm: "Ee, ichiman-gosen-en harawanaito ikemasen." },
+                { char: "Watt", type: "B", icon: "💸", action: "Syok Harga", jp: "えっ。15,000円ですか。雑誌は 300円だったんですけど……。", id: "Eh. 15.000 yen? Padahal majalahnya (cuma) 300 yen lho...", rm: "Eitsu. Ichiman-gosen-en desu ka. Zasshi wa san-byaku-en datta n desu kedo..." }
+            ]
+        },
+        sampah: { 
+            title: "ごみは どこに 出したら いいですか", 
+            desc: "Bab 26", 
+            color: "bg-blue-600",
+            icon: "🗑️",
+            situation: "Miller bertanya aturan sampah dan masalah fasilitas kepada Pengelola Apartemen (Kanrinin).",
+            script: [
+                { char: "Pengelola", type: "A", icon: "🏢", action: "Tanya Pindahan", jp: "ミラーさん、引越しの 荷物は 片づきましたか。", id: "Miller-san, barang-barang pindahannya sudah beres?", rm: "Miraa-san, hikkoshi no nimotsu wa katazukimashita ka?" },
+                { char: "Miller", type: "B", icon: "📦", action: "Sudah Beres", jp: "はい、だいたい 片づきました。あのう、ごみを 捨てたいんですが、どこに 出したら いいですか。", id: "Iya, sebagian besar sudah beres. Anu, saya mau buang sampah, sebaiknya dikeluarkan ke mana?", rm: "Hai, daitai katazukimashita. Anou, gomi o sutetai n desu ga..." },
+                { char: "Pengelola", type: "A", icon: "🗓️", action: "Jadwal Sampah", jp: "燃える ごみは 月曜日と 木曜日の 朝 出して ください。ごみ置き場は 駐車場の 横です。", id: "Sampah bakar keluarkan Senin & Kamis pagi. Tempat sampahnya di samping parkiran.", rm: "Moeru gomi wa getsuyoubi to mokuyoubi no asa..." },
+                { char: "Miller", type: "B", icon: "❓", action: "Tanya Botol", jp: "瓶や 缶は いつですか。", id: "Kalau botol dan kaleng kapan?", rm: "Bin ya kan wa itsu desu ka?" },
+                { char: "Pengelola", type: "A", icon: "🗓️", action: "Jadwal Sabtu", jp: "土曜日です。", id: "Hari Sabtu.", rm: "Doyoubi desu." },
+                { char: "Miller", type: "B", icon: "🚿", action: "Keluh Air Panas", jp: "わかりました。それから お湯が 出ないんですが……。", id: "Mengerti. Lalu, air panas tidak keluar (dari keran)...", rm: "Wakarimashita. Sorekara oyu ga denai n desu ga..." },
+                { char: "Pengelola", type: "A", icon: "📞", action: "Saran Telpon", jp: "ガス会社に 連絡したら、すぐ 来て くれますよ。", id: "Kalau menghubungi perusahaan gas, mereka akan segera datang lho.", rm: "Gasu-gaisha ni renraku shitara, sugu kite kuremasu yo." },
+                { char: "Miller", type: "B", icon: "📱", action: "Minta Nomor", jp: "すみませんが、電話番号を 教えて いただけませんか。", id: "Maaf, bisakah Anda memberitahu nomor teleponnya?", rm: "Sumimasen ga, denwabangou o oshiete itadakemasen ka?" },
+                { char: "Pengelola", type: "A", icon: "✅", action: "Boleh", jp: "ええ、いいですよ。", id: "Iya, boleh saja.", rm: "Ee, ii desu yo." }
+            ]
+        },
+        klinik: { 
+            title: "どう しましたか", 
+            desc: "Bab Klinik", 
+            color: "bg-teal-700",
+            icon: "🏥",
+            situation: "Matsumoto memeriksakan kesehatan ke Dokter (Isha).",
+            script: [
+                { char: "Dokter", type: "A", icon: "👨‍⚕️", action: "Tanya Keluhan", jp: "どうしましたか。", id: "Ada apa? (Apa keluhannya?)", rm: "Dou shimashita ka?" },
+                { char: "Matsumoto", type: "B", icon: "🤒", action: "Gejala", jp: "きのうから のどが 痛くて 熱も 少し あります。", id: "Sejak kemarin tenggorokan sakit dan sedikit demam.", rm: "Kinou kara nodo ga itakute, netsu mo sukoshi arimasu." },
+                { char: "Dokter", type: "A", icon: "👄", action: "Periksa Mulut", jp: "そうですか。ちょっと 口を 開けて ください。", id: "Begitu ya. Tolong buka mulutnya sebentar.", rm: "Sou desu ka. Chotto kuchi o akete kudasai." },
+                { char: "Matsumoto", type: "B", icon: "❓", action: "Tanya Sakit Apa", jp: "あの、何の 病気ですか。", id: "Anu, saya sakit apa ya?", rm: "Ano, nan no byouki desu ka?" },
+                { char: "Dokter", type: "A", icon: "🤒", action: "Diagnosa", jp: "風邪ですね。", id: "Sakit flu ya.", rm: "Kaze desu ne." },
+                { char: "Matsumoto", type: "B", icon: "📝", action: "Minta Tulisan", jp: "すみません、病気の 名前を 書いて いただけませんか。", id: "Maaf, bisakah menuliskan nama penyakitnya?", rm: "Sumimasen, byouki no namae o kaite itadakemasen ka?" },
+                { char: "Dokter", type: "A", icon: "✍️", action: "Boleh", jp: "いいですよ。・・・・・はい、どうぞ。", id: "Boleh saja. ...Ini, silakan.", rm: "Ii desu yo. ...Hai, douzo." },
+                { char: "Matsumoto", type: "B", icon: "🙏", action: "Terima Kasih", jp: "ありがとうございます。", id: "Terima kasih banyak.", rm: "Arigatou gozaimasu." },
+                { char: "Dokter", type: "A", icon: "🛌", action: "Saran Istirahat", jp: "２、３日 ゆっくり 休んで くださいね。", id: "Istirahatlah dengan tenang selama 2-3 hari ya.", rm: "Ni, san nichi yukkuri yasunde kudasai ne." },
+                { char: "Matsumoto", type: "B", icon: "🚅", action: "Info Dinas", jp: "あのう、あしたから 東京へ 出張しなければ なりません。", id: "Anu, mulai besok saya harus dinas ke Tokyo.", rm: "Anou, ashita kara Toukyou e shucchou shinakereba narimasen." },
+                { char: "Dokter", type: "A", icon: "💊", action: "Aturan Obat", jp: "じゃ、今日は 薬を 飲んで、早く 寝て ください。", id: "Kalau begitu, hari ini minum obat lalu tidur awal.", rm: "Ja, kyou wa kusuri o nonde, hayaku nete kudasai." },
+                { char: "Matsumoto", type: "B", icon: "✅", action: "Ya", jp: "はい。", id: "Baik.", rm: "Hai." },
+                { char: "Dokter", type: "A", icon: "🚫", action: "Larangan Mandi", jp: "それから、今晩は お風呂に 入らないで くださいね。", id: "Lalu, malam ini tolong jangan mandi (berendam) ya.", rm: "Sorekara, konban wa ofuro ni hairanaide kudasai ne." },
+                { char: "Matsumoto", type: "B", icon: "👤", action: "Paham", jp: "はい、わかりました。", id: "Baik, saya mengerti.", rm: "Hai, wakarimashita." },
+                { char: "Dokter", type: "A", icon: "✨", action: "Perpisahan", jp: "じゃ、お大事に。", id: "Semoga lekas sembuh.", rm: "Ja, odaiji ni." },
+                { char: "Matsumoto", type: "B", icon: "🙏", action: "Terima Kasih Akhir", jp: "どうも ありがとう ございました。", id: "Terima kasih banyak.", rm: "Doumo arigatou gozaimashita." }
+            ]
+        }
     };
 
     let activeKey = 'delay';
     let currentStep = 0;
     let voices = [];
 
-    // Voice Initialization
-    function loadVoices() {
-        voices = window.speechSynthesis.getVoices();
-    }
+    function loadVoices() { voices = window.speechSynthesis.getVoices(); }
     window.speechSynthesis.onvoiceschanged = loadVoices;
-    loadVoices();
 
     function speak(text, type) {
         if (!window.speechSynthesis) return;
         window.speechSynthesis.cancel();
-        
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = 'ja-JP';
-
-        // Select the best Japanese voice
-        const jpVoice = voices.find(v => (v.lang === 'ja-JP' || v.lang === 'ja_JP') && v.name.includes('Google')) 
-                       || voices.find(v => v.lang.includes('ja'));
+        const jpVoice = voices.find(v => (v.lang === 'ja-JP' || v.lang === 'ja_JP')) || voices.find(v => v.lang.includes('ja'));
         if (jpVoice) utterance.voice = jpVoice;
-
-        // Kontras Suara Ekstrem
-        if (type === 'A') {
-            utterance.pitch = 0.5; // Sangat Berat (Pria/Atasan)
-            utterance.rate = 0.75; // Lambat
-        } else {
-            utterance.pitch = 1.5; // Sangat Tinggi (Wanita/Junior)
-            utterance.rate = 1.0;  // Normal
-        }
-
+        utterance.pitch = type === 'A' ? 0.8 : 1.2;
+        utterance.rate = type === 'A' ? 0.85 : 1.0;
         window.speechSynthesis.speak(utterance);
     }
 
@@ -207,14 +222,15 @@
 
     function toggleElement(id) {
         const el = document.getElementById(id);
+        const rm = document.getElementById('rm-text');
         if (el.classList.contains('hidden-content')) {
             el.classList.remove('hidden-content');
             el.classList.add('show-content');
-            if (id === 'id-text') document.getElementById('rm-text').classList.add('show-content');
+            if (id === 'id-text') { rm.classList.add('show-content'); rm.classList.remove('hidden-content'); }
         } else {
             el.classList.remove('show-content');
             el.classList.add('hidden-content');
-            if (id === 'id-text') document.getElementById('rm-text').classList.remove('show-content');
+            if (id === 'id-text') { rm.classList.remove('show-content'); rm.classList.add('hidden-content'); }
         }
     }
 
@@ -222,41 +238,35 @@
         const data = database[activeKey];
         const step = data.script[currentStep];
         
-        // Header Update
-        document.getElementById('header-bg').className = `px-8 py-8 text-white transition-all duration-700 shadow-lg ${data.color}`;
+        document.getElementById('header-bg').className = `px-8 py-6 text-white transition-all duration-700 shadow-lg relative overflow-hidden ${data.color}`;
         document.getElementById('header-title').innerText = data.title;
         document.getElementById('header-desc').innerText = data.desc;
         document.getElementById('step-indicator').innerText = (currentStep + 1).toString().padStart(2, '0');
-
-        // Character Card Update
+        document.getElementById('situation-box').innerText = data.situation;
+        document.getElementById('header-icon-large').innerText = data.icon;
         document.getElementById('avatar').innerText = step.icon;
         document.getElementById('char-name').innerText = step.char;
+        document.getElementById('action-prompt').innerText = step.action;
         
         const badge = document.getElementById('char-badge');
         badge.innerText = `SUARA TIPE ${step.type}`;
         badge.className = `absolute -top-4 px-6 py-2 rounded-full shadow-lg text-[9px] font-black tracking-[0.3em] text-white ${step.type === 'A' ? 'bg-slate-800' : 'bg-amber-600'}`;
-        
-        document.getElementById('voice-label').innerText = step.type === 'A' ? 'BERAT / RENDAH (OTORITAS)' : 'TINGGI / CERIA (PASIEN/STAF)';
 
-        // Reset Text Displays
-        const jp = document.getElementById('jp-text');
-        jp.innerText = step.jp;
-        jp.className = "hidden-content bg-slate-900 text-white rounded-3xl text-2xl font-bold leading-relaxed shadow-2xl border-b-8 border-amber-500";
-        
-        const id = document.getElementById('id-text');
-        id.innerText = step.id;
-        id.className = "hidden-content bg-amber-50 border-2 border-amber-100 rounded-2xl text-slate-700 text-sm font-bold italic";
-        
-        const rm = document.getElementById('rm-text');
-        rm.innerText = step.rm;
-        rm.className = "hidden-content font-mono text-[10px] text-slate-400 bg-slate-50 py-2 rounded-lg tracking-widest uppercase";
+        document.getElementById('jp-text').innerText = step.jp;
+        document.getElementById('id-text').innerText = step.id;
+        document.getElementById('rm-text').innerText = step.rm;
 
-        // Progress Dots
+        // Reset visibility on step change
+        ['jp-text', 'id-text', 'rm-text'].forEach(id => {
+            document.getElementById(id).classList.add('hidden-content');
+            document.getElementById(id).classList.remove('show-content');
+        });
+
         const dots = document.getElementById('dots-container');
         dots.innerHTML = '';
         data.script.forEach((_, i) => {
             const dot = document.createElement('div');
-            dot.className = `h-1.5 rounded-full transition-all duration-300 ${i === currentStep ? 'w-10 bg-amber-500' : 'w-2 bg-slate-200'}`;
+            dot.className = `h-1.5 rounded-full transition-all duration-300 ${i === currentStep ? 'w-8 bg-amber-500' : 'w-1.5 bg-slate-200'}`;
             dots.appendChild(dot);
         });
     }
@@ -278,7 +288,10 @@
         }
     }
 
-    window.onload = () => changeSkenario('delay');
+    window.onload = () => {
+        loadVoices();
+        changeSkenario('delay');
+    }
 </script>
 </body>
 </html>
