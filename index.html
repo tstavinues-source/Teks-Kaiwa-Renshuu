@@ -12,6 +12,7 @@
         .show-content { opacity: 1; transform: scale(1); pointer-events: auto; height: auto; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); padding: 1.25rem; margin-top: 1rem; }
         .tab-active { background-color: #f59e0b !important; color: white !important; box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4); }
         .lang-active { background-color: #334155; color: #f59e0b; border-color: #f59e0b; }
+        .speed-active { background-color: #14b8a6 !important; color: white !important; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
@@ -19,7 +20,7 @@
 
 <div class="max-w-md w-full bg-slate-50 min-h-screen shadow-2xl flex flex-col relative overflow-hidden md:rounded-[3rem] md:min-h-[850px]">
     
-    <!-- Top Bar: Language Options with Flags on the LEFT -->
+    <!-- Top Bar: Language Options -->
     <div class="bg-slate-900 px-6 pt-6 pb-2 flex justify-between items-center">
         <div class="flex gap-1 bg-slate-800 p-1 rounded-xl border border-slate-700">
             <button onclick="setLanguage('id')" id="btn-id" class="px-3 py-1.5 flex items-center gap-1.5 text-[10px] font-bold rounded-lg transition-all text-slate-400">
@@ -32,7 +33,7 @@
         <span class="text-[10px] font-black text-slate-500 tracking-[0.3em]">MASTER JP</span>
     </div>
 
-    <!-- Navigation Tabs (Scenario Titles) -->
+    <!-- Navigation Tabs -->
     <div class="bg-slate-900 pb-4 px-4 overflow-x-auto flex gap-2 no-scrollbar sticky top-0 z-50 border-b border-slate-800">
         <button onclick="changeSkenario('delay')" id="tab-delay" class="scenario-tab px-5 py-2 rounded-full text-[10px] font-black text-slate-400 bg-slate-800 transition-all uppercase tracking-widest shrink-0 border border-slate-700">...</button>
         <button onclick="changeSkenario('atm')" id="tab-atm" class="scenario-tab px-5 py-2 rounded-full text-[10px] font-black text-slate-400 bg-slate-800 transition-all uppercase tracking-widest shrink-0 border border-slate-700">...</button>
@@ -71,11 +72,23 @@
             </div>
         </div>
 
+        <!-- Audio Controls -->
         <div class="mt-6 space-y-3">
-            <button onclick="handlePlayAudio()" class="w-full py-5 bg-teal-600 hover:bg-teal-700 text-white rounded-[2rem] shadow-xl transition-all active:scale-95 flex items-center justify-center gap-4 group">
-                <span id="btn-listen" class="font-black text-xs uppercase tracking-widest">Dengarkan Suara</span>
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217z"></path></svg>
-            </button>
+            <div class="flex flex-col gap-2">
+                <button onclick="handlePlayAudio()" class="w-full py-5 bg-teal-600 hover:bg-teal-700 text-white rounded-[2rem] shadow-xl transition-all active:scale-95 flex items-center justify-center gap-4 group">
+                    <span id="btn-listen" class="font-black text-xs uppercase tracking-widest">Dengarkan Suara</span>
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217z"></path></svg>
+                </button>
+                
+                <!-- Speed Selector -->
+                <div class="flex justify-center items-center gap-2 bg-slate-100 p-1.5 rounded-2xl border border-slate-200">
+                    <span class="text-[9px] font-black text-slate-400 uppercase ml-2 mr-1">Speed:</span>
+                    <button onclick="setSpeed(0.5)" id="speed-0-5" class="speed-btn px-3 py-1.5 rounded-xl text-[10px] font-black transition-all bg-white text-slate-500 border border-slate-200">0.5x</button>
+                    <button onclick="setSpeed(0.8)" id="speed-0-8" class="speed-btn px-3 py-1.5 rounded-xl text-[10px] font-black transition-all bg-white text-slate-500 border border-slate-200">0.8x</button>
+                    <button onclick="setSpeed(1.0)" id="speed-1-0" class="speed-btn speed-active px-3 py-1.5 rounded-xl text-[10px] font-black transition-all bg-white text-slate-500 border border-slate-200">Normal</button>
+                </div>
+            </div>
+
             <div class="grid grid-cols-2 gap-3">
                 <button id="btn-show-jp" onclick="toggleElement('jp-text')" class="py-3.5 bg-slate-800 text-white rounded-2xl font-black text-[9px] uppercase tracking-widest shadow-lg active:scale-95">Lihat Jepang</button>
                 <button id="btn-show-id" onclick="toggleElement('id-text')" class="py-3.5 bg-white border-2 border-slate-200 text-slate-400 rounded-2xl font-black text-[9px] uppercase tracking-widest shadow-md active:scale-95">Arti & Romaji</button>
@@ -97,6 +110,7 @@
 
 <script>
     let currentLang = 'id';
+    let playbackSpeed = 1.0;
     
     const uiText = {
         id: { 
@@ -130,7 +144,7 @@
                 { char: "Nakamura", type: "A", icon: "👨‍💼", action: {id: "Tanya Alasan", vi: "Hỏi lý do"}, jp: "ミラーさん、どう したんですか。", id: "Miller-san, ada apa?", vi: "Anh Miller, có chuyện gì vậy?", rm: "Miraa-san, dou shita n desu ka?" },
                 { char: "Miller", type: "B", icon: "🚌", action: {id: "Jelaskan Kejadian", vi: "Giải thích sự việc"}, jp: "実は 来る 途中で 事故ga あって、バスga 遅れて しまったんです。", id: "Sebenarnya di tengah jalan ada kecelakaan, dan bus terlambat.", vi: "Thực ra trên đường đến đây có tai nạn nên xe buýt bị trễ.", rm: "Jitsu wa kuru tochu de jiko ga atte, basu ga okurete shimatta n desu." },
                 { char: "Nakamura", type: "A", icon: "❓", action: {id: "Konfirmasi", vi: "Xác nhận"}, jp: "バスの 事故ですか。", id: "Kecelakaan bus?", vi: "Tai nạn xe buýt à?", rm: "Basu no jiko desu ka?" },
-                { char: "Miller", type: "B", icon: "🚚", action: {id: "Detail Kecelakaan", vi: "Chi tiết tai nạn"}, jp: "いいえ。交差点で トラックと 車が ぶつかって、バスが 動かなかったんです。", id: "Bukan. Di persimpangan truk dan mobil tabrakan, bus tidak bergerak.", vi: "Không. Ở ngã tư, xe tải và ô tô đâm nhau nên xe buýt không di chuyển được.", rm: "Iie. Kousaten de torakku to kuruma ga butsukatte, basu ga ugokanakatta n desu." },
+                { char: "Miller", type: "B", icon: "🚚", action: {id: "Detail Kecelakaan", vi: "Chi tiết tai nạn"}, jp: "いいえ。交差点で トラックと 車が ぶつかって、バスが 動かなかったんです。", id: "Bukan. Di persimpangan truk dan mobil tabrakan, bus tidak bergerak.", vi: "Không. Ở ngã tư, xe tải và ô tô đâm nhau nên xe buýt tidak bergerak.", rm: "Iie. Kousaten de torakku to kuruma ga butsukatte, basu ga ugokanakatta n desu." },
                 { char: "Nakamura", type: "A", icon: "🤝", action: {id: "Empati", vi: "Đồng cảm"}, jp: "それは 大変でしたね。", id: "Wah, itu sulit ya.", vi: "Chuyện đó vất vả nhỉ.", rm: "Sore wa taihen deshita ne." },
                 { char: "Nakamura", type: "A", icon: "📢", action: {id: "Info Kekhawatiran", vi: "Thông tin lo lắng"}, jp: "連絡が ないので、みんな 心配して いたんですよ。", id: "Karena tidak ada kabar, semuanya mengkhawatirkan Anda lho.", vi: "Vì không thấy lứa liên lạc nên mọi người đã rất lo lắng đấy.", rm: "Renraku ga nai node, minna shinpai shite ita n desu yo." },
                 { char: "Miller", type: "B", icon: "📱", action: {id: "Jelaskan HP Lupa", vi: "Quên điện thoại"}, jp: "電話したかったんですが、ケータイを うちに 忘れて しまって……。どうも すみませんでした。", id: "Saya ingin telepon tapi HP ketinggalan di rumah... Benar-benar mohon maaf.", vi: "Tôi đã muốn gọi điện nhưng lại quên điện thoại ở nhà... Thực sự xin lỗi.", rm: "Denwa shitakatta n desu ga, keetai o uchi ni wasurete shimatte... doumo sumimasen deshita." },
@@ -148,7 +162,7 @@
             },
             script: [
                 { char: "Maria", type: "B", icon: "👩", action: {id: "Minta Bantuan", vi: "Nhờ giúp đỡ"}, jp: "すみませんが、ちょっと 使い方を 教えて ください。", id: "Maaf, tolong ajarkan sebentar cara pakainya.", vi: "Xin lỗi, hãy hướng dẫn tôi cách sử dụng một chút.", rm: "Sumimasen ga, chotto tsukaikata o oshiete kudasai." },
-                { char: "Petugas", type: "A", icon: "🏦", action: {id: "Tanya Jenis Transaksi", vi: "Hỏi loại giao dịch"}, jp: "お引き出しですか。", id: "Apakah ingin tarik tunai?", vi: "Chị muốn rút tiền phải không?", rm: "Ohikidashi desu ka?" },
+                { char: "Petugas", type: "A", icon: "🏦", action: {id: "Tanya Jenis Transaksi", vi: "Hỏi loại giao dịch"}, jp: "お引き出しですか。", id: "Apakah ingin tarik tunai?", vi: "Chị ingin rút tiền phải không?", rm: "Ohikidashi desu ka?" },
                 { char: "Maria", type: "B", icon: "💳", action: {id: "Konfirmasi", vi: "Xác nhận"}, jp: "はい、お金を 引き出したいんです。", id: "Iya, saya ingin tarik uang.", vi: "Vâng, tôi muốn rút tiền.", rm: "Hai, okane o hikidashitai n desu." },
                 { char: "Petugas", type: "A", icon: "☝️", action: {id: "Langkah 1", vi: "Bước 1"}, jp: "では、まず ここを 押して ください。", id: "Kalau begitu, pertama tekan di sini.", vi: "Vậy thì, đầu tiên hãy nhấn ở đây.", rm: "Dewa, mazu koko o oshite kudasai." },
                 { char: "Maria", type: "B", icon: "✅", action: {id: "Ya", vi: "Vâng"}, jp: "はい。", id: "Iya.", vi: "Vâng.", rm: "Hai." },
@@ -161,7 +175,7 @@
                 { char: "Petugas", type: "A", icon: "📄", action: {id: "Tanya Struk", vi: "Hỏi biên lai"}, jp: "ご利用明細票は 要りますか。", id: "Apakah rincian transaksi (struk) diperlukan?", vi: "Chị có cần biên lai giao dịch không?", rm: "Goriyou-meisaihyou wa irimasu ka?" },
                 { char: "Maria", type: "B", icon: "📄", action: {id: "Butuh Struk", vi: "Cần biên lai"}, jp: "はい、要ります。", id: "Iya, perlu.", vi: "Vâng, tôi cần.", rm: "Hai, irimasu." },
                 { char: "Petugas", type: "A", icon: "🔘", action: {id: "Langkah Akhir", vi: "Bước cuối"}, jp: "では、この「いる」の ボタンを 押して ください。", id: "Kalau begitu, silakan tekan tombol 'Iru' (Ada/Perlu) ini.", vi: "Vậy thì hãy nhấn nút 'Cần' này.", rm: "Dewa, kono 'iru' no botan o oshite kudasai." },
-                { char: "Maria", type: "B", icon: "🙏", action: {id: "Terima Kasih", vi: "Cảm ơn"}, jp: "はい。どうも ありがとう ございました。", id: "Iya. Terima kasih banyak.", vi: "Vâng. Cảm ơn ông rất banyak.", rm: "Hai. Doumo arigatou gozaimashita." }
+                { char: "Maria", type: "B", icon: "🙏", action: {id: "Terima Kasih", vi: "Cảm ơn"}, jp: "はい。どうも ありがとう ございました。", id: "Iya. Terima kasih banyak.", vi: "Vâng. Cảm ơn ông rất nhiều.", rm: "Hai. Doumo arigatou gozaimashita." }
             ]
         },
         parkir: { 
@@ -180,7 +194,7 @@
                 { char: "Staf", type: "A", icon: "🚫", action: {id: "Jelaskan Arti", vi: "Giải thích ý nghĩa"}, jp: "止めては いけない 場所に 車を 止めたと いう 意味です。どこに 止めたんですか。", id: "Artinya memarkir mobil di tempat terlarang. Di mana Anda memarkirnya?", vi: "Nghĩa là bạn đã đỗ xe ở nơi không được phép đỗ. Bạn đã đỗ ở đâu?", rm: "Tomete wa ikenai basho ni kuruma o tometa to iu imi desu." },
                 { char: "Watt", type: "B", icon: "🚉", action: {id: "Jawab Lokasi", vi: "Trả lời địa điểm"}, jp: "駅の 前です。雑誌を 買いに 行って、10分だけ……。", id: "Di depan stasiun. Pergi beli majalah, cuma 10 menit...", vi: "Ở trước ga. Tôi đi mua tạp chí, chỉ 10 phút thôi...", rm: "Eki no mae desu. Zasshi o kai ni itte, juppun dake..." },
                 { char: "Staf", type: "A", icon: "🚫", action: {id: "Teguran", vi: "Nhắc nhở"}, jp: "駅の 前だったら、10分でも だめですよ。", id: "Kalau di depan stasiun, 10 menit pun tidak boleh lho.", vi: "Nếu là trước ga thì dù là 10 phút cũng không được đâu.", rm: "Eki no mae dattara, juppun demo dame desu yo." },
-                { char: "Watt", type: "B", icon: "😰", action: {id: "Tanya Denda", vi: "Hỏi tiền phạt"}, jp: "そうですか。罰金を 払わなければ なりませんか。", id: "Begitu ya. Apakah saya harus membayar denda?", vi: "Vậy sao. Tôi có phải nộp tiền phạt không?", rm: "Sou desu ka. Bakkin o harawanakereba narimasen ka?" },
+                { char: "Watt", type: "B", icon: "😰", action: {id: "Tanya Denda", vi: "Hỏi denda"}, jp: "そうですか。罰金を 払わなければ なりませんか。", id: "Begitu ya. Apakah saya harus membayar denda?", vi: "Vậy sao. Tôi có phải nộp tiền phạt không?", rm: "Sou desu ka. Bakkin o harawanakereba narimasen ka?" },
                 { char: "Staf", type: "A", icon: "💰", action: {id: "Sebutkan Denda", vi: "Nói tiền phạt"}, jp: "ええ、15,000円 払わないと いけません。", id: "Iya, harus bayar 15.000 yen.", vi: "Vâng, phải nộp 15.000 Yên.", rm: "Ee, ichiman-gosen-en harawanaito ikemasen." },
                 { char: "Watt", type: "B", icon: "💸", action: {id: "Syok Harga", vi: "Sốc giá"}, jp: "えっ。15,000円ですか。雑誌は 300円だったんですけど……。", id: "Eh. 15.000 yen? Padahal majalahnya (cuma) 300 yen lho...", vi: "Hả. 15.000 Yên á? Cuốn tạp chí có 300 Yên mà...", rm: "Eitsu. Ichiman-gosen-en desu ka. Zasshi wa san-byaku-en datta n desu kedo..." }
             ]
@@ -217,7 +231,7 @@
             },
             script: [
                 { char: "Dokter", type: "A", icon: "👨‍⚕️", action: {id: "Tanya Keluhan", vi: "Hỏi triệu chứng"}, jp: "どうしましたか。", id: "Ada apa? (Apa keluhannya?)", vi: "Anh bị làm sao?", rm: "Dou shimashita ka?" },
-                { char: "Matsumoto", type: "B", icon: "🤒", action: {id: "Gejala", vi: "Triệu chứng"}, jp: "きのうから のどが 痛くて 熱も 少し あります。", id: "Sejak kemarin tenggorokan sakit dan sedikit demam.", vi: "Từ hôm qua họng tôi bị đau và cũng hơi sốt.", rm: "Kinou kara nodo ga itakute, netsu mo sukoshi arimasu." },
+                { char: "Matsumoto", type: "B", icon: "🤒", action: {id: "Gejala", vi: "Triệu chứng"}, jp: "きのうから のどが 痛くて 熱も 少し あります。", id: "Sejak kemarin tenggorokan sakit dan sedikit demam.", vi: "Từ hôm qua họng tôi bị đau và juga hơi sốt.", rm: "Kinou kara nodo ga itakute, netsu mo sukoshi arimasu." },
                 { char: "Dokter", type: "A", icon: "👄", action: {id: "Periksa Mulut", vi: "Kiểm tra miệng"}, jp: "そうですか。ちょっと 口を 開けて ください。", id: "Begitu ya. Tolong buka mulutnya sebentar.", vi: "Thế à. Hãy há miệng ra một chút.", rm: "Sou desu ka. Chotto kuchi o akete kudasai." },
                 { char: "Matsumoto", type: "B", icon: "❓", action: {id: "Tanya Sakit Apa", vi: "Hỏi bệnh gì"}, jp: "あの、何の 病気ですか。", id: "Anu, saya sakit apa ya?", vi: "À, tôi bị bệnh gì vậy?", rm: "Ano, nan no byouki desu ka?" },
                 { char: "Dokter", type: "A", icon: "🤒", action: {id: "Diagnosa", vi: "Chẩn đoán"}, jp: "風邪ですね。", id: "Sakit flu ya.", vi: "Cảm cúm thôi.", rm: "Kaze desu ne." },
@@ -253,7 +267,7 @@
         document.getElementById('btn-show-jp').innerText = uiText[lang].showJp;
         document.getElementById('btn-show-id').innerText = uiText[lang].showId;
 
-        // Update Nav Tabs (Scenario Titles)
+        // Update Nav Tabs
         document.getElementById('tab-delay').innerText = uiText[lang].tabs.delay;
         document.getElementById('tab-atm').innerText = uiText[lang].tabs.atm;
         document.getElementById('tab-parkir').innerText = uiText[lang].tabs.parkir;
@@ -263,6 +277,14 @@
         render();
     }
 
+    function setSpeed(speed) {
+        playbackSpeed = speed;
+        document.querySelectorAll('.speed-btn').forEach(btn => btn.classList.remove('speed-active'));
+        if (speed === 0.5) document.getElementById('speed-0-5').classList.add('speed-active');
+        if (speed === 0.8) document.getElementById('speed-0-8').classList.add('speed-active');
+        if (speed === 1.0) document.getElementById('speed-1-0').classList.add('speed-active');
+    }
+
     function speak(text, type) {
         if (!window.speechSynthesis) return;
         window.speechSynthesis.cancel();
@@ -270,8 +292,13 @@
         utterance.lang = 'ja-JP';
         const jpVoice = voices.find(v => (v.lang === 'ja-JP' || v.lang === 'ja_JP')) || voices.find(v => v.lang.includes('ja'));
         if (jpVoice) utterance.voice = jpVoice;
+        
+        // Custom Speed
+        utterance.rate = playbackSpeed;
+        
+        // Pitch variation based on character type
         utterance.pitch = type === 'A' ? 0.8 : 1.2;
-        utterance.rate = type === 'A' ? 0.85 : 1.0;
+        
         window.speechSynthesis.speak(utterance);
     }
 
